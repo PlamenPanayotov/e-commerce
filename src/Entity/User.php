@@ -41,6 +41,8 @@ class User implements UserInterface
      */
     private $password;
 
+    private $oldPassword;
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -112,6 +114,14 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getOldPassword(): string
+    {
+        return (string) $this->oldPassword;
     }
 
     /**

@@ -20,6 +20,7 @@ class EditPassword extends AbstractType
     {
         $builder
             ->add('oldPassword', PasswordType::class,[
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your old password',

@@ -22,14 +22,12 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/user/profile", name="user_profile")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function profile()
     {
         $user = $this->userService->currentUser();
         $isVerified = $user->isVerified();
-        if(!$user) {
-            return $this->redirectToRoute('app_login');
-        }
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'isVerified' => $isVerified
@@ -73,14 +71,22 @@ class UserController extends AbstractController
         $user = $this->userService->currentUser();
         
         $form = $this->createForm(EditPassword::class, $user);
-        $old_pwd = $request->get('old_password'); 
+        
         $new_pwd = $request->get('new_password'); 
         $new_pwd_confirm = $request->get('new_password_confirm');
         
         $form->handleRequest($request);
+        $old_pwd = $form->get('oldPassword')->getData(); 
         if($form->isSubmitted() && $form->isValid()) {
             $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
+            
             if($checkPass === true) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
@@ -93,6 +99,7 @@ class UserController extends AbstractController
         }
         return $this->render('user/edit_password.html.twig', [
             'editPasswordForm' => $form->createView(),
+            'old' => $old_pwd
         ]);
     }
 }
