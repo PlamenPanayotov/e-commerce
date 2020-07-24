@@ -48,7 +48,6 @@ class UserController extends AbstractController
     {
         $user = $this->userService->currentUser();
         $oldEmail = $user->getEmail();
-        $isVerified = $user->isVerified();
         
         $form = $this->createForm(EditUserType::class, $user);
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\EditPassword;
+use App\Form\ResetPasswordType;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
