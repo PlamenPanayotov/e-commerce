@@ -82,5 +82,4 @@ class SecurityController extends AbstractController
             'old' => $old_pwd
         ]);
     }
-
 }

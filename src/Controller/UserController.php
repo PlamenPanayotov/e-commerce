@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\EditUserType;
+use App\Security\EmailVerifier;
+use App\Service\Email\EmailConfirmationServiceInterface;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +15,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserController extends AbstractController
 {
     private $userService;
+    private $emailVerifier;
+    private $emailConfirmationService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(UserServiceInterface $userService, 
+                                EmailVerifier $emailVerifier, 
+                                EmailConfirmationServiceInterface $emailConfirmationService)
     {
         $this->userService = $userService;
+        $this->emailVerifier = $emailVerifier;
+        $this->emailConfirmationService = $emailConfirmationService;
     }
     /**
      * @Route("/user/profile", name="user_profile")
@@ -39,13 +47,20 @@ class UserController extends AbstractController
     public function editUser(Request $request)
     {
         $user = $this->userService->currentUser();
+        $oldEmail = $user->getEmail();
         $isVerified = $user->isVerified();
         
         $form = $this->createForm(EditUserType::class, $user);
 
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $newEmail = $form->get('email')->getData();
+            if($oldEmail !== $newEmail) {
+                $user->setIsVerified(false);
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                $this->emailConfirmationService->emailContent($user));
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
