@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
-use App\Form\EditUserType;
+use App\Form\User\EditUserType;
 use App\Security\EmailVerifier;
 use App\Service\Email\EmailConfirmationServiceInterface;
 use App\Service\User\UserServiceInterface;

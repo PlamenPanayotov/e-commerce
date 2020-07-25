@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\User;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class EditPassword extends AbstractType
+class EditPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

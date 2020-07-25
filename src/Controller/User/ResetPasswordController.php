@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\User;
-use App\Form\ChangePasswordFormType;
-use App\Form\ResetPasswordRequestFormType;
+use App\Form\User\ResetPasswordFormType;
+use App\Form\User\ResetPasswordRequestFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -103,7 +103,7 @@ class ResetPasswordController extends AbstractController
         }
 
         // The token is valid; allow the user to change their password.
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(ResetPasswordFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

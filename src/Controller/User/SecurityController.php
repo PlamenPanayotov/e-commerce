@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
-use App\Form\EditPassword;
-use App\Form\ResetPasswordType;
+use App\Form\User\EditPasswordType;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +53,7 @@ class SecurityController extends AbstractController
     {
         $user = $this->userService->currentUser();
         
-        $form = $this->createForm(EditPassword::class, $user);
+        $form = $this->createForm(EditPasswordType::class, $user);
         
         $form->handleRequest($request);
         $old_pwd = $form->get('oldPassword')->getData(); 

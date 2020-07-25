@@ -20,6 +20,8 @@
     <h1>
       Hello {{ user.username }}! ✅
     </h1>This friendly message is coming from:<ul>
+      <li><a href="{{ path('app_home') }}">Home</a></li>
+      <li><a href="{{ path('user_edit_profile') }}">Edit profile</a></li>
       <li>
         Your controller at <code><a href="{{ 'E:/Projects/e-commerce/e-commerce/src/Controller/UserController.php'|file_link(
               0
