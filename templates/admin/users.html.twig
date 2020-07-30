@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  All Users
+{% endblock %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        Username
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        Is Verified
+      </th>
+    </tr>
+    {% for user in users %}
+      <tr>
+        <td>
+          {{ user.id }}
+        </td>
+        <td>
+          {{ user.username }}
+        </td>
+        <td>
+          {{ user.email }}
+        </td>
+        <td>
+          {{ user.isVerified }}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  <a href="{{ path('admin_dashboard') }}">Back to dashboard</a>
+{% endblock %}

@@ -5,7 +5,7 @@ namespace App\Controller\User;
 use App\Entity\User;
 use App\Form\User\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Security\LoginAuthenricator;
+use App\Security\LoginAuthenticator;
 use App\Service\Email\EmailConfirmationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenricator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -62,7 +62,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/user_register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
