@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Form\User\EditPasswordType;
 use App\Service\User\UserServiceInterface;
+use App\Subscribers\UserLocaleSubscriber;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SecurityController extends AbstractController
 {
     private $userService;
+    
 
     public function __construct(UserServiceInterface $userService)
     {

@@ -19,6 +19,9 @@
     {% endif %}
     {% if app.user %}
       <h1>
+        {% trans %}Hello!{% endtrans %}
+      </h1>
+      <h1>
         Hello {{ app.user.username }}! ✅
       </h1>
       <li class="nav-item">

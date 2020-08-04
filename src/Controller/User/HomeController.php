@@ -2,13 +2,16 @@
 
 namespace App\Controller\User;
 
+use App\Form\User\ChangeLocaleFormType;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    private $userService;
+    private object $userService;
 
     public function __construct(UserServiceInterface $userService)
     {
@@ -25,4 +28,6 @@ class HomeController extends AbstractController
             'isVerified' => $isVerified
         ]);
     }
+
+    
 }
