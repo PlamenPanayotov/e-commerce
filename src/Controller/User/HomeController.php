@@ -22,10 +22,12 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        $user = $this->userService->currentUser();
         $isVerified = $this->userService->isVerified();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'isVerified' => $isVerified
+            'isVerified' => $isVerified,
+            'user' => $user
         ]);
     }
 

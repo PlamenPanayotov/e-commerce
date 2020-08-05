@@ -22,7 +22,7 @@
         {% trans %}User.hello{% endtrans %}
       </h1>
       <h1>
-        {% trans %}User.hello{% endtrans %} {{ app.user.username }}! ✅
+        {% trans %}User.hello{% endtrans %} {{ user.username }}! ✅
       </h1>
       <li class="nav-item">
         <a href="{{ path('user_profile') }}">
@@ -62,7 +62,7 @@
       </li>
     </ul>
     <div id="app">
-        <app></app>
+      <app></app>
     </div>
   </div>
 {% endblock %}

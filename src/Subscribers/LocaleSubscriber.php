@@ -16,11 +16,12 @@ class LocaleSubscriber implements EventSubscriberInterface
         }
 
         $locale = $request->getSession()->get('_locale');
-        $cookie = $_COOKIE['_locale'];
+        
         if ($locale = $request->attributes->get('_locale')) {
             $request->getSession()->set('_locale', $locale);
         } else {
             if (array_key_exists('_locale', $_COOKIE)) {
+                $cookie = $_COOKIE['_locale'];
                 $request->setLocale($cookie);
 
                 if ($cookie != 'en_US' && $cookie != 'bg_BG') {

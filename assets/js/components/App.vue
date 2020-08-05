@@ -1,7 +1,16 @@
 <template>
-  <h2>Welcome to Syngy ndedd</h2>
+  <h2>Welcome ${ user.username }$</h2>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      name: "",
+    };
+  },
+  // mounted() {
+  //   this.name = username;
+  // },
+};
 </script>
