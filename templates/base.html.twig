@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        Welcome!
+      {% endblock %}
+    </title>
+    {% block stylesheets %}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    {% endblock %}
+    <style>
+      table { font-family: arial, sans-serif; border-collapse: collapse; width:
+      100%; }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+      td, th { border: 1px solid #dddddd; text-align: left; padding: 8px; }
+
+      tr:nth-child(even) { background-color: #dddddd; }
+    </style>
+  </head>
+  <body>
+    {% block body %}
+
+    {% endblock %}
+    <script src="{{ asset('build/app.js') }}"></script>
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+  </body>
 </html>

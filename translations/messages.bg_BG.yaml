@@ -1,1 +1,6 @@
-Hello!: Здравейте!
+User:
+  login: Вход
+  profile: Профил
+  register: Регистрация
+  logout: Изход
+  hello: Здравейте!

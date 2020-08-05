@@ -19,20 +19,32 @@
     {% endif %}
     {% if app.user %}
       <h1>
-        {% trans %}Hello!{% endtrans %}
+        {% trans %}User.hello{% endtrans %}
       </h1>
       <h1>
-        Hello {{ app.user.username }}! ✅
+        {% trans %}User.hello{% endtrans %} {{ app.user.username }}! ✅
       </h1>
       <li class="nav-item">
-        <a href="{{ path('user_profile') }}">Profile page</a>
+        <a href="{{ path('user_profile') }}">
+          {% trans %}User.profile{% endtrans %}
+        </a>
       </li>
-      <li><a href="{{ path('app_logout') }}">Logout</a></li>
+      <li>
+        <a href="{{ path('app_logout') }}">
+          {% trans %}User.logout{% endtrans %}
+        </a>
+      </li>
     {% else %}
       <li class="nav-item">
-        <a href="{{ path('app_register') }}">Register</a>
+        <a href="{{ path('app_register') }}">
+          {% trans %}User.register{% endtrans %}
+        </a>
       </li>
-      <li><a href="{{ path('app_login') }}">Login</a></li>
+      <li>
+        <a href="{{ path('app_login') }}">
+          {% trans %}User.login{% endtrans %}
+        </a>
+      </li>
     {% endif %}This friendly message is coming from:<ul>
       <li>
         Your controller at <code><a href="{{ 'E:/Projects/e-commerce/e-commerce/src/Controller/HomeController.php'|file_link(
@@ -49,5 +61,8 @@
           </a></code>
       </li>
     </ul>
+    <div id="app">
+        <app></app>
+    </div>
   </div>
 {% endblock %}
