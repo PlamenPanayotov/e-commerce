@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,12 +24,14 @@ class DashboardController extends AbstractController
     /**
      * @Route("/admin", name="admin_dashboard")
      */
-    public function adminDashboard()
+    public function adminDashboard(ProductRepository $productRepository)
     {
+
         $admin = $this->userService->currentUser();
         return $this->render('admin/dashboard.html.twig', [
             'controller_name' => 'Dashboard',
-            'admin' => $admin
+            'admin' => $admin,
+            'products' => $productRepository->findAll()
         ]);
     }
 
