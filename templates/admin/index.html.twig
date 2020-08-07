@@ -45,6 +45,8 @@
             {{ product.price }}
           </td>
           <td>
+            {{ product.category }}
+          <td>
             <a href="{{
               path(
                 'product_show',
@@ -78,4 +80,5 @@
   </table>
 
   <a href="{{ path('product_new') }}">Create new</a>
+  <a href="{{ path('admin_dashboard') }}">Back to dashboard</a>
 {% endblock %}

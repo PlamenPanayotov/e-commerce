@@ -44,10 +44,17 @@ class Category
      * @ORM\Column(type="integer")
      */
     private $row;
+
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     */
+    private $products;
     
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +131,14 @@ class Category
         $this->row = $row;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
     }
 
     // public function addChild(Category $child): self

@@ -13,19 +13,15 @@
     <tbody>
       <tr>
         <th>
-          Id
+          {{ category.name }}
         </th>
-        <td>
-          {{ category.id }}
-        </td>
       </tr>
       <tr>
-        <th>
-          Name
-        </th>
-        <td>
-          {{ category.name }}
-        </td>
+        {% for products in category.products %}
+          <td>
+            {{ products.name }}
+          </td>
+        {% endfor %}
       </tr>
     </tbody>
   </table>
