@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Category index
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Category index
+  </h1>
+
+  {% macro recursiveCategory(category) %}
+    <li>
+      {% if category.children|length %}
+        <ul>
+          {% for child in category.children %}
+            <a href="{{
+              path(
+                'category_show',
+                {
+                  id: child.id
+                }
+              )
+              }}">
+              {{ child.name }}
+            </a>
+            {{ _self.recursiveCategory(child) }}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endmacro %}
+
+  {% if categories %}
+    <div id="categories">
+      <ul>
+        {% for category in categories %}
+          {% if category.row == 1 %}
+            <a href="{{
+              path(
+                'category_show',
+                {
+                  id: category.id
+                }
+              )
+              }}">
+              {{ category.name }}
+            </a>
+            {{ _self.recursiveCategory(category) }}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <a href="{{ path('category_new') }}">Create new</a>
+{% endblock %}

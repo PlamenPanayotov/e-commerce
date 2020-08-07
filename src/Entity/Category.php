@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -23,7 +25,7 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    private $name;
 
     /**
      * One Category has Many Categories.
@@ -37,6 +39,11 @@ class Category
      * @JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $row;
     
 
     public function __construct() {
@@ -99,4 +106,46 @@ class Category
 
         return $this;
     }
+
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+
+    public function getRow(): ?int
+    {
+        return $this->row;
+    }
+
+    public function setRow(int $row): self
+    {
+        $this->row = $row;
+
+        return $this;
+    }
+
+    // public function addChild(Category $child): self
+    // {
+    //     if (!$this->children->contains($child)) {
+    //         $this->children[] = $child;
+    //         $child->setParent($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeChild(Category $child): self
+    // {
+    //     if ($this->children->contains($child)) {
+    //         $this->children->removeElement($child);
+    //         // set the owning side to null (unless already changed)
+    //         if ($child->getParent() === $this) {
+    //             $child->setParent(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
 }
