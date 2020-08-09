@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductTranslation", mappedBy="product")
+     */
+    private $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -88,5 +100,13 @@ class Product
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ProductTranslation[]
+     */ 
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
     }
 }

@@ -61,6 +61,54 @@
           </a></code>
       </li>
     </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Id
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            Price
+          </th>
+          <th>
+            category
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+          <tr>
+            <td>
+              {{ product.id }}
+            </td>
+            <td>
+              {{ product.name }}
+            </td>
+            <td>
+              {{ product.description }}
+            </td>
+            <td>
+              {{ product.price }}
+            </td>
+            <td>
+              {{ product.category }}
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">
+              no records found
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     <div id="app">
       <app></app>
     </div>
