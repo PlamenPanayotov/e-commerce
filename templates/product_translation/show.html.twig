@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductTranslation{% endblock %}
+
+{% block body %}
+    <h1>ProductTranslation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_translation.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ product_translation.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product_translation.description }}</td>
+            </tr>
+            <tr>
+                <th>MetaKeywords</th>
+                <td>{{ product_translation.metaKeywords }}</td>
+            </tr>
+            <tr>
+                <th>MetaDescription</th>
+                <td>{{ product_translation.metaDescription }}</td>
+            </tr>
+            <tr>
+                <th>ShortDescription</th>
+                <td>{{ product_translation.shortDescription }}</td>
+            </tr>
+            <tr>
+                <th>Locale</th>
+                <td>{{ product_translation.locale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_translation_index') }}">back to list</a>
+
+    <a href="{{ path('product_translation_edit', {'id': product_translation.id}) }}">edit</a>
+
+    {{ include('product_translation/_delete_form.html.twig') }}
+{% endblock %}

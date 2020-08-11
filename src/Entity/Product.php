@@ -109,4 +109,23 @@ class Product
     {
         return $this->translations;
     }
+    
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+
+    // /**
+    //  * Set the value of translations
+    //  *
+    //  * @return  self
+    //  */ 
+    // public function setTranslations(?ProductTranslation $translations): self
+    // {
+    //     $this->translations = $translations;
+
+    //     return $this;
+    // }
 }

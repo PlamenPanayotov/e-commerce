@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,15 +32,24 @@ class AdminProductController extends AbstractController
     public function new(Request $request): Response
     {
         $product = new Product();
+        $productTranslation = new ProductTranslation();
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
-
+        dump($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $productTranslation->setName($form->get('name')->getData());
+            $productTranslation->setDescription($form->get('description')->getData());
+            $productTranslation->setMetaKeywords($form->get('metaKeywords')->getData());
+            $productTranslation->setMetaDescription($form->get('metaDescription')->getData());
+            $productTranslation->setShortDescription($form->get('shortDescription')->getData());
+            $productTranslation->setLocale($form->get('locale')->getData());
+            $productTranslation->setProduct($product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
+            $entityManager->persist($productTranslation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('product_index');
+            // return $this->redirectToRoute('product_index');
         }
 
         return $this->render('admin/product/new.html.twig', [
