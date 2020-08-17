@@ -9,6 +9,33 @@
     Create new Product
   </h1>
 
+  {# <div>
+    <form action="{{ path('product_new') }}" method="post">
+      <legend>
+        Create new product
+      </legend>
+      <div>
+        <label>Name</label>
+        <input type="text" name="product[name]" />
+      </div>
+      <div>
+        <label>Category</label>
+        <input type="text" name="product[categry]" />
+      </div>
+      <div>
+        <label>Description</label>
+        <textarea name="product[description]"></textarea>
+      </div>
+      <div>
+        <label>Price</label>
+        <input type="text" name="product[price]" />
+      </div>
+      <div>
+        <label>Name</label>
+        <input type="text" name="product[name]" />
+      </div>
+    </form>
+  </div> #}
   {{ include('admin/product/_form.html.twig') }}
 
   <a href="{{ path('product_index') }}">back to list</a>

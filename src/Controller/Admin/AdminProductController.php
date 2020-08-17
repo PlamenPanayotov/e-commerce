@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
 use App\Repository\ProductRepository;
+use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminProductController extends AbstractController
 {
+    private $productTranslationService;
+
+    public function __construct(ProductTranslationServiceInterface $productTranslationService)
+    {
+        $this->productTranslationService = $productTranslationService;
+    }
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
@@ -32,24 +39,21 @@ class AdminProductController extends AbstractController
     public function new(Request $request): Response
     {
         $product = new Product();
-        $productTranslation = new ProductTranslation();
+        $productFirstTranslation = new ProductTranslation();
+        $productSecondTranslation = new ProductTranslation();
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
-        dump($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $productTranslation->setName($form->get('name')->getData());
-            $productTranslation->setDescription($form->get('description')->getData());
-            $productTranslation->setMetaKeywords($form->get('metaKeywords')->getData());
-            $productTranslation->setMetaDescription($form->get('metaDescription')->getData());
-            $productTranslation->setShortDescription($form->get('shortDescription')->getData());
-            $productTranslation->setLocale($form->get('locale')->getData());
-            $productTranslation->setProduct($product);
+            
+            $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
-            $entityManager->persist($productTranslation);
+            $entityManager->persist($productFirstTranslation);
+            $entityManager->persist($productSecondTranslation);
             $entityManager->flush();
 
-            // return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('admin/product/new.html.twig', [

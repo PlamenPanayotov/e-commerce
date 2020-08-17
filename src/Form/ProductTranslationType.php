@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\ProductTranslation;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,13 +14,18 @@ class ProductTranslationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('metaKeywords')
-            ->add('metaDescription')
-            ->add('shortDescription')
-            ->add('locale')
-            ->add('product')
+            ->add('name_en')
+            ->add('description_en')
+            ->add('metaKeywords_en')
+            ->add('metaDescription_en')
+            ->add('shortDescription_en')
+        ;
+        $builder
+            ->add('name_bg')
+            ->add('description_bg')
+            ->add('metaKeywords_bg')
+            ->add('metaDescription_bg')
+            ->add('shortDescription_bg')
         ;
     }
 

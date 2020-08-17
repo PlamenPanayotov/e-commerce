@@ -103,6 +103,26 @@ class Product
     }
 
     /**
+     * @param ProductTranslation $productTranslation
+     * 
+     * @return Product
+     */
+    public function addTranslations(ProductTranslation $productTranslation)
+    {
+        $this->translations[] = $productTranslation;
+        return $this;
+    }
+
+    /**
+     * @param ProductTranslation $productTranslation
+     */
+    public function removeTranslations(ProductTranslation $productTranslation)
+    {
+        $this->translations->removeElement($productTranslation);
+    }
+
+
+    /**
      * @return Collection|ProductTranslation[]
      */ 
     public function getTranslations(): Collection
@@ -122,10 +142,9 @@ class Product
     //  *
     //  * @return  self
     //  */ 
-    // public function setTranslations(?ProductTranslation $translations): self
+    // public function addTranslations(?ProductTranslation $translation)
     // {
-    //     $this->translations = $translations;
-
-    //     return $this;
+    //     $this->translations->add($translation);
+    //     $translation->setProduct($this);
     // }
 }

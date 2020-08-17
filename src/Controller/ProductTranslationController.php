@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ProductTranslation;
-use App\Form\ProductTranslationType;
+use App\Form\ProductTranslation1Type;
 use App\Repository\ProductTranslationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +33,7 @@ class ProductTranslationController extends AbstractController
         $productTranslation = new ProductTranslation();
         $form = $this->createForm(ProductTranslationType::class, $productTranslation);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($productTranslation);
@@ -62,7 +63,7 @@ class ProductTranslationController extends AbstractController
      */
     public function edit(Request $request, ProductTranslation $productTranslation): Response
     {
-        $form = $this->createForm(ProductTranslationType::class, $productTranslation);
+        $form = $this->createForm(ProductTranslation1Type::class, $productTranslation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
