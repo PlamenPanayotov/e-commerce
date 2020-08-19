@@ -1,5 +1,125 @@
-{{ form_start(form) }}
-
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div id="admin_product">
+  {% if product %}
+    {% set prod = product %}
+    {% set productEn = productTranslationEn %}
+    {% set productBg = productTranslationBg %}
+  {% endif %}
+  <div>
+    <label for="admin_product_price" class="required">Price</label><input type="text"
+      id="admin_product_price"
+      name="admin_product[price]"
+      required="required"
+      value="{{ prod.price }}" />
+  </div>
+  <div>
+    <label for="admin_product_category" class="required">Category</label>
+    <select id="admin_product_category" name="admin_product[category]">
+      <option value="">
+        Choose...
+      </option>
+      {% for category in categories %}
+        <option value="{{ category.id }}" name="product[category]">
+          {{ category.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
+    <label for="admin_product_name" class="required">Name</label><input type="text"
+      id="admin_product_name"
+      name="admin_product[name]"
+      required="required"
+      value="{{ prod.name }}" />
+  </div>
+  <div>
+    <label for="admin_product_description" class="required">Description</label><textarea id="admin_product_description"
+      name="admin_product[description]"
+      required="required"
+      value="{{ prod.description }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_name_en" class="required">Name en</label><input type="text"
+      id="admin_product_name_en"
+      name="admin_product[name_en]"
+      required="required"
+      value="{{ productEn.name }}" />
+  </div>
+  <div>
+    <label for="admin_product_description_en" class="required">
+      Description en
+    </label><textarea id="admin_product_description_en"
+      name="admin_product[description_en]"
+      required="required"
+      value="{{ productEn.description }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_metaKeywords_en" class="required">
+      Meta keywords en
+    </label><input type="text"
+      id="admin_product_metaKeywords_en"
+      name="admin_product[metaKeywords_en]"
+      required="required"
+      value="{{ productEn.metaKeywords }}" />
+  </div>
+  <div>
+    <label for="admin_product_metaDescription_en" class="required">
+      Meta description en
+    </label><textarea id="admin_product_metaDescription_en"
+      name="admin_product[metaDescription_en]"
+      required="required"
+      value="{{ productEn.metaDescription }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_shortDescription_en" class="required">
+      Short description en
+    </label><textarea id="admin_product_shortDescription_en"
+      name="admin_product[shortDescription_en]"
+      required="required"
+      value="{{ productEn.shortDescription }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_name_bg" class="required">Name bg</label><input type="text"
+      id="admin_product_name_bg"
+      name="admin_product[name_bg]"
+      required="required"
+      value="{{ productBg.name }}" />
+  </div>
+  <div>
+    <label for="admin_product_description_bg" class="required">
+      Description bg
+    </label><textarea id="admin_product_description_bg"
+      name="admin_product[description_bg]"
+      required="required"
+      value="{{ productBg.description }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_metaKeywords_bg" class="required">
+      Meta keywords bg
+    </label><input type="text"
+      id="admin_product_metaKeywords_bg"
+      name="admin_product[metaKeywords_bg]"
+      required="required"
+      value="{{ productBg.metaKeywords }}" />
+  </div>
+  <div>
+    <label for="admin_product_metaDescription_bg" class="required">
+      Meta description bg
+    </label><textarea id="admin_product_metaDescription_bg"
+      name="admin_product[metaDescription_bg]"
+      required="required"
+      value="{{ productBg.metaDescription }}"></textarea>
+  </div>
+  <div>
+    <label for="admin_product_shortDescription_bg" class="required">
+      Short description bg
+    </label><textarea id="admin_product_shortDescription_bg"
+      name="admin_product[shortDescription_bg]"
+      required="required"
+      value="{{ productBg.shortDescription }}"></textarea>
+  </div>
+  <input type="hidden"
+    id="admin_product__token"
+    name="admin_product[_token]"
+    value="yH5_uY7KOrMNFsh3n91eUUa351tzMYMNCqGW-SxRoc8" />
+</div>
+<button class="btn">Save</button>

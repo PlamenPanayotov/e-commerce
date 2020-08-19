@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ProductTranslationRepository;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,8 +38,9 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
+        $categories = $categoryRepository->findAll();
         $product = new Product();
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
@@ -58,6 +61,7 @@ class AdminProductController extends AbstractController
 
         return $this->render('admin/product/new.html.twig', [
             'product' => $product,
+            'categories' => $categories,
             'form' => $form->createView(),
         ]);
     }
@@ -75,8 +79,11 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
+        $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
+        $productTranslationEn = $productTranslations[0];
+        $productTranslationBg = $productTranslations[1];
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
 
@@ -88,6 +95,8 @@ class AdminProductController extends AbstractController
 
         return $this->render('admin/product/edit.html.twig', [
             'product' => $product,
+            'productTranslationEn' => $productTranslationEn,
+            'productTranslationBg' => $productTranslationBg,
             'form' => $form->createView(),
         ]);
     }
@@ -95,10 +104,18 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product): Response
+    public function delete(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+
+            $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
+            
             $entityManager = $this->getDoctrine()->getManager();
+
+            foreach ($productTranslations as $productTranslation) {
+                $entityManager->remove($productTranslation);
+            }
+
             $entityManager->remove($product);
             $entityManager->flush();
         }

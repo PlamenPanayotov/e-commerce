@@ -8,15 +8,10 @@
   <h1>
     Edit Product
   </h1>
-
-  {{
-    include(
-      'admin/product/_form.html.twig',
-      {
-        button_label: 'Update'
-      }
-    )
-  }}
+<form name="admin_product" method="post">
+    {{ include('admin/product/_form.html.twig') }}
+  </form>
+  
 
   <a href="{{ path('product_index') }}">back to list</a>
 
