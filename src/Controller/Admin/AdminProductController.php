@@ -8,6 +8,7 @@ use App\Form\Admin\AdminProductType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
+use App\Service\Category\CategoryServiceInterface;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminProductController extends AbstractController
 {
     private $productTranslationService;
+    private $categoryService;
 
-    public function __construct(ProductTranslationServiceInterface $productTranslationService)
+    public function __construct(ProductTranslationServiceInterface $productTranslationService,
+                                CategoryServiceInterface $categoryService)
     {
         $this->productTranslationService = $productTranslationService;
+        $this->categoryService = $categoryService;
     }
     /**
      * @Route("/", name="product_index", methods={"GET"})
@@ -38,17 +42,15 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request): Response
     {
-        $categories = $categoryRepository->findAll();
+        $categories = $this->categoryService->getAll();
         $product = new Product();
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
@@ -62,6 +64,8 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/new.html.twig', [
             'product' => $product,
             'categories' => $categories,
+            'productTranslationEn' => $productFirstTranslation,
+            'productTranslationBg' => $productSecondTranslation,
             'form' => $form->createView(),
         ]);
     }
@@ -95,6 +99,7 @@ class AdminProductController extends AbstractController
 
         return $this->render('admin/product/edit.html.twig', [
             'product' => $product,
+            'categories' => $this->categoryService->getAll(),
             'productTranslationEn' => $productTranslationEn,
             'productTranslationBg' => $productTranslationBg,
             'form' => $form->createView(),

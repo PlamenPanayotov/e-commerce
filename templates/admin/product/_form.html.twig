@@ -1,9 +1,10 @@
 <div id="admin_product">
-  {% if product %}
+  {% if product is defined %}
     {% set prod = product %}
     {% set productEn = productTranslationEn %}
     {% set productBg = productTranslationBg %}
   {% endif %}
+
   <div>
     <label for="admin_product_price" class="required">Price</label><input type="text"
       id="admin_product_price"
@@ -117,9 +118,6 @@
       required="required"
       value="{{ productBg.shortDescription }}"></textarea>
   </div>
-  <input type="hidden"
-    id="admin_product__token"
-    name="admin_product[_token]"
-    value="yH5_uY7KOrMNFsh3n91eUUa351tzMYMNCqGW-SxRoc8" />
 </div>
+{{ form_row(form._token) }}
 <button class="btn">Save</button>
