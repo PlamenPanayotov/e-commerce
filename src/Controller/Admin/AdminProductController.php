@@ -50,6 +50,7 @@ class AdminProductController extends AbstractController
         $productSecondTranslation = new ProductTranslation();
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
             $entityManager = $this->getDoctrine()->getManager();
@@ -90,7 +91,7 @@ class AdminProductController extends AbstractController
         $productTranslationBg = $productTranslations[1];
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
