@@ -67,9 +67,20 @@ class Category
         return $this->id;
     }
 
+
     public function getName(): ?string
     {
-        return $_COOKIE['_locale'] == 'bg_BG' ? $this->nameBg : $this->name;
+        if (array_key_exists('_locale', $_COOKIE)) {
+            $cookie = $_COOKIE['_locale'];
+
+            if ($cookie != 'en_US' && $cookie != 'bg_BG') {
+                return $this->nameBg;
+            } else {
+                return $this->name;
+            }
+        } else {
+            return $this->nameBg;
+        }
     }
 
     public function setName(string $name): self
