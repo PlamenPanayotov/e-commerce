@@ -13,6 +13,7 @@ class AdminCategoryType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('nameBg')
             ->add('parent')
         ;
     }

@@ -49,6 +49,11 @@ class Category
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
     private $products;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nameBg;
     
 
     public function __construct() 
@@ -64,7 +69,7 @@ class Category
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $_COOKIE['_locale'] == 'bg_BG' ? $this->nameBg : $this->name;
     }
 
     public function setName(string $name): self
@@ -163,4 +168,26 @@ class Category
 
     //     return $this;
     // }
+
+    
+   
+    /**
+     * Set the value of nameBg
+     *
+     * @return  self
+     */ 
+    public function setNameBg($nameBg)
+    {
+        $this->nameBg = $nameBg;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nameBg
+     */ 
+    public function getNameBg()
+    {
+        return $this->nameBg;
+    }
 }

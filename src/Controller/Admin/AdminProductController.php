@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
-use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
 use App\Service\Category\CategoryServiceInterface;

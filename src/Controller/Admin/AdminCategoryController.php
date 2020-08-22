@@ -39,7 +39,7 @@ class AdminCategoryController extends AbstractController
             $row = null == $parent ? 1 : $parent->getRow() + 1;
             $category->setRow($row);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
+            $entityManager->persist($category); 
             $entityManager->flush();
 
             return $this->redirectToRoute('category_index');
