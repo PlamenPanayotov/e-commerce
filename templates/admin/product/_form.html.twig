@@ -1,17 +1,3 @@
-{% macro recursiveCategory(category) %}
-  <li>
-    {% if category.children|length %}
-      <ul>
-        {% for child in category.children %}
-          <input type="radio" id="male" name="gender" value="{{ child.id }}" />
-          <label for="male">{{ child.name }}</label><br />
-          {{ _self.recursiveCategory(child) }}
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </li>
-{% endmacro %}
-
 <div id="admin_product">
   {% if product is defined %}
     {% set prod = product %}
@@ -27,19 +13,20 @@
       value="{{ prod.price }}" />
   </div>
   <div>
-    <label for="admin_product_category" class="required">Category</label>
-    <ul>
+    <label for="country">Категория</label>
+    <select class="custom-select d-block w-100"
+      name="admin_product[category]"
+      id="admin_product_category_id"
+      required="">
+      <option value="">
+        Избери...
+      </option>
       {% for category in categories %}
-        {% if category.row == 1 %}
-          <input type="radio"
-            id="male"
-            name="gender"
-            value="{{ category.id }}" />
-          <label for="male">{{ category.name }}</label><br />
-          {{ _self.recursiveCategory(category) }}
-        {% endif %}
+        <option value="{{ category.id }}" name="product[category]">
+          {{ category.name }}
+        </option>
       {% endfor %}
-    </ul>
+    </select>
   </div>
   <div>
     <label for="admin_product_name" class="required">Name</label><input type="text"
