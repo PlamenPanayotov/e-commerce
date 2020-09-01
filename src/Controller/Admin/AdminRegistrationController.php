@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Admin;
 use App\Entity\User;
 use App\Form\Admin\AdminRegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,24 +18,23 @@ class AdminRegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new User();
-        $form = $this->createForm(AdminRegistrationFormType::class, $user);
+        $admin = new Admin();
+        $form = $this->createForm(AdminRegistrationFormType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
+            $admin->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $admin,
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setUsername($form->get('email')->getData());
-            $user->setIsVerified(true);
-            $user->setRoles(['ROLE_ADMIN']);
+            
+            $admin->setRoles(['ROLE_ADMIN']);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($admin);
             $entityManager->flush();
             // do anything else you need here, like send an email
 

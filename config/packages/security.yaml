@@ -8,35 +8,53 @@ security:
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
     # used to reload user from session & other features (e.g. switch_user)
+    app_admin_provider:
+      entity:
+        class: App\Entity\Admin
+        property: username
     app_user_provider:
       entity:
         class: App\Entity\User
         property: email
     # used to reload user from session & other features (e.g. switch_user)
+    # used to reload user from session & other features (e.g. switch_user)
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-    main:
+    admin:
+      pattern: ^/admin
+      provider: app_admin_provider
       anonymous: true
-      lazy: true
+      logout:
+        path: admin_login
+        target: admin_login
+      form_login:
+        login_path: admin_login
+        check_path: admin_login
+        default_target_path: admin_dashboard
+      context: admin
+    main:
+      pattern: ^/
       provider: app_user_provider
-      guard:
-        authenticators:
-          - App\Security\LoginAuthenticator
-        entry_point: App\Security\LoginAuthenticator
+      anonymous: true
+      remember_me:
+        secret: '%kernel.secret%'
+        lifetime: 604800 # 1 week in seconds
+        path: /
+      form_login:
+        login_path: app_login
+        check_path: app_login
       logout:
         path: app_logout
-        # where to redirect after logout
-        target: app_home
-
+        target: app_login
+      context: shop
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
       # https://symfony.com/doc/current/security/impersonating_user.html
-      # switch_user: true
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/admin, roles: ROLE_ADMIN }
+    # - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/user/profile, roles: ROLE_USER }
