@@ -18,8 +18,8 @@ class AdminRegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $admin = new Admin();
-        $form = $this->createForm(AdminRegistrationFormType::class, $admin);
+        $admin = new User();
+        $form = $this->createForm(RegistrationFormType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,7 +38,7 @@ class AdminRegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('admin-dashboard');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('registration/admin_register.html.twig', [

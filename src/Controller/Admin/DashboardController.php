@@ -7,17 +7,21 @@ use App\Repository\UserRepository;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractController
 {
     private $userService;
+    private $security;
     private $userRepository;
 
     public function __construct(UserServiceInterface $userService,
-                                UserRepository $userRepository)
+                                UserRepository $userRepository,
+                                Security $security)
     {
         $this->userService = $userService;
         $this->userRepository = $userRepository;
+        $this->security = $security;
 
 
     }
@@ -27,7 +31,7 @@ class DashboardController extends AbstractController
     public function adminDashboard(ProductRepository $productRepository)
     {
 
-        $admin = $this->userService->currentUser();
+        $admin = $this->security->getUser();
         return $this->render('admin/dashboard.html.twig', [
             'controller_name' => 'Dashboard',
             'admin' => $admin,
