@@ -7,6 +7,7 @@ use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
+use App\Service\Admin\AdminServiceInterface;
 use App\Service\Category\CategoryServiceInterface;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,12 +22,15 @@ class AdminProductController extends AbstractController
 {
     private $productTranslationService;
     private $categoryService;
+    private $adminService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
-                                CategoryServiceInterface $categoryService)
+                                CategoryServiceInterface $categoryService,
+                                AdminServiceInterface $adminService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
+        $this->adminService = $adminService;
     }
     /**
      * @Route("/", name="product_index", methods={"GET"})
@@ -35,6 +39,7 @@ class AdminProductController extends AbstractController
     {
         return $this->render('admin/product/all_products.html.twig', [
             'products' => $productRepository->findAll(),
+            'admin' => $this->adminService->currentAdmin()
         ]);
     }
 
