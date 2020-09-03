@@ -35,11 +35,12 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductTranslationRepository $productTranslationRepository, Request $request): Response
     {
+        $locale = $request->getLocale();
         return $this->render('admin/product/all_products.html.twig', [
-            'products' => $productRepository->findAll(),
-            'admin' => $this->adminService->currentAdmin()
+            'products' => $productTranslationRepository->findBy(['locale' => $locale]),
+            'admin' => $this->adminService->currentAdmin(),
         ]);
     }
 
