@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\OptionGroupeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OptionGroupeRepository::class)
  */
-class OptionGroupe
+class OptionGroup
 {
     /**
      * @ORM\Id()
@@ -23,11 +24,20 @@ class OptionGroupe
      */
     private $name;
 
-
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Option", mappedBy="groupe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Option", mappedBy="group")
      */
     private $options;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOption", mappedBy="option_group")
+     */
+    private $productOptions;
+
+    public function __construct()
+    {
+        $this->productOptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +62,14 @@ class OptionGroupe
     public function getOptions(): Collection
     {
         return $this->options;
+    }
+
+    /**
+     * @return Collection|ProductOptions[]
+     */
+    public function getProductOptions(): Collection
+    {
+        return $this->productOptions;
     }
     
 }

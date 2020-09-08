@@ -26,13 +26,19 @@ class Option
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OptionGroupe", inversedBy="options")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OptionGroup", inversedBy="options")
      */
-    private $groupe;
+    private $group;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOption", mappedBy="option")
+     */
+    private $productOptions;
 
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->productOptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,16 +60,24 @@ class Option
 
     
 
-    public function getGroupe(): ?OptionGroupe
+    public function getGroup(): ?OptionGroup
     {
-        return $this->groupe;
+        return $this->group;
     }
 
     
-    public function setGroupe(OptionGroupe $groupe)
+    public function setGroupe(OptionGroup $group)
     {
-        $this->groupe = $groupe;
+        $this->group = $group;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ProductOptions[]
+     */
+    public function getProductOptions(): Collection
+    {
+        return $this->productOptions;
     }
 }

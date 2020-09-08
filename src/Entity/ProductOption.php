@@ -27,6 +27,16 @@ class ProductOption
      */
     private $product;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Option", inversedBy="product_options")
+     */
+    private $option;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\OptionGroup", inversedBy="product_options")
+     */
+    private $optionGroup;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,5 +67,27 @@ class ProductOption
         return $this;
     }
 
-    
+    public function getOption(): ?Option
+    {
+        return $this->option;
+    }
+
+    public function setOption(Option $option)
+    {
+        $this->option = $option;
+
+        return $this;
+    }
+
+    public function getOptionGroup(): ?OptionGroup
+    {
+        return $this->optionGroup;
+    }
+
+    public function setOptionGroup(OptionGroup $optionGroup)
+    {
+        $this->optionGroup = $optionGroup;
+
+        return $this;
+    }
 }
