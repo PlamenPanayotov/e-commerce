@@ -37,9 +37,11 @@
     </style>
   </head>
   <body>
-    {% block body %}
+    <div id="app">
+      {% block body %}
 
-    {% endblock %}
+      {% endblock %}
+    </div>
     {% block javascripts %}
       <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
       <script src="{{

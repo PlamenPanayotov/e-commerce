@@ -44,9 +44,15 @@ class Product
      */
     private $translations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOption", mappedBy="product")
+     */
+    private $productOptions;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->productOptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,4 +153,12 @@ class Product
     //     $this->translations->add($translation);
     //     $translation->setProduct($this);
     // }
+
+    /**
+     * @return Collection|ProductOptions[]
+     */
+    public function getProductOptions(): Collection
+    {
+        return $this->productOptions;
+    }
 }
