@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OptionGroup index{% endblock %}
+
+{% block body %}
+    <h1>OptionGroup index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for option_group in option_groups %}
+            <tr>
+                <td>{{ option_group.id }}</td>
+                <td>{{ option_group.name }}</td>
+                <td>
+                    <a href="{{ path('option_group_show', {'id': option_group.id}) }}">show</a>
+                    <a href="{{ path('option_group_edit', {'id': option_group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('option_group_new') }}">Create new</a>
+{% endblock %}

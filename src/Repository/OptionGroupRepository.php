@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\OptionGroupe;
+use App\Entity\OptionGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method OptionGroupe|null find($id, $lockMode = null, $lockVersion = null)
- * @method OptionGroupe|null findOneBy(array $criteria, array $orderBy = null)
- * @method OptionGroupe[]    findAll()
- * @method OptionGroupe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OptionGroup|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OptionGroup|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OptionGroup[]    findAll()
+ * @method OptionGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OptionGroupeRepository extends ServiceEntityRepository
+class OptionGroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, OptionGroupe::class);
+        parent::__construct($registry, OptionGroup::class);
     }
 
     // /**

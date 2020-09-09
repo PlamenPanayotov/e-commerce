@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit OptionGroup{% endblock %}
+
+{% block body %}
+    <h1>Edit OptionGroup</h1>
+
+    {{ include('option_group/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('option_group_index') }}">back to list</a>
+
+    {{ include('option_group/_delete_form.html.twig') }}
+{% endblock %}

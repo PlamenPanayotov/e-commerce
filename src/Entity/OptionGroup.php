@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\OptionGroupeRepository;
+use App\Repository\OptionGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OptionGroupeRepository::class)
+ * @ORM\Entity(repositoryClass=OptionGroupRepository::class)
  */
 class OptionGroup
 {
@@ -37,6 +37,7 @@ class OptionGroup
     public function __construct()
     {
         $this->productOptions = new ArrayCollection();
+        $this->options = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,6 +57,25 @@ class OptionGroup
         return $this;
     }
 
+    // /**
+    //  * @param Option $option
+    //  * 
+    //  * @return OptionGroup
+    //  */
+    // public function addTranslations(Option $option)
+    // {
+    //     $this->options[] = $option;
+    //     return $this;
+    // }
+
+    // /**
+    //  * @param Option $option
+    //  */
+    // public function removeTranslations(Option $option)
+    // {
+    //     $this->options->removeElement($option);
+    // }
+
     /**
      * @return Collection|Option[]
      */
@@ -70,6 +90,11 @@ class OptionGroup
     public function getProductOptions(): Collection
     {
         return $this->productOptions;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
     
 }

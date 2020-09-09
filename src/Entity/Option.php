@@ -66,7 +66,7 @@ class Option
     }
 
     
-    public function setGroupe(OptionGroup $group)
+    public function setGroup(OptionGroup $group)
     {
         $this->group = $group;
 

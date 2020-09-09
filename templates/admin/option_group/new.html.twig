@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  New OptionGroup
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Create new OptionGroup
+  </h1>
+
+  {{ include('admin/option_group/_form.html.twig') }}
+
+  <a href="{{ path('option_group_index') }}">back to list</a>
+{% endblock %}
