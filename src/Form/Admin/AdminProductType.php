@@ -3,9 +3,12 @@
 namespace App\Form\Admin;
 
 use App\Entity\Category;
+use App\Entity\OptionGroup;
 use App\Entity\Product;
+use App\Entity\ProductOption;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,9 +27,6 @@ class AdminProductType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             
-            
-
-        //     
                 
                 ->add('name_en', TextType::class, [
                     'mapped' => false,
@@ -41,6 +41,11 @@ class AdminProductType extends AbstractType
                 ->add('metaKeywords_bg', TextType::class, ['mapped' => false])
                 ->add('metaDescription_bg', TextareaType::class, ['mapped' => false])
                 ->add('shortDescription_bg', TextareaType::class, ['mapped' => false])
+                
+                ->add('option_group', FormType::class, [
+                    'data_class' => OptionGroupType::class,
+                    'mapped' => false
+                ])
             
         ;
     }

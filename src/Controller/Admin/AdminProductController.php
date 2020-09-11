@@ -9,6 +9,8 @@ use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
 use App\Service\Admin\AdminServiceInterface;
 use App\Service\Category\CategoryServiceInterface;
+use App\Service\Option\OptionServiceInterface;
+use App\Service\OptionGroup\OptionGroupServiceInterface;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,14 +25,20 @@ class AdminProductController extends AbstractController
     private $productTranslationService;
     private $categoryService;
     private $adminService;
+    private $optionService;
+    private $optionGroupService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
-                                AdminServiceInterface $adminService)
+                                AdminServiceInterface $adminService,
+                                OptionServiceInterface $optionService,
+                                OptionGroupServiceInterface $optionGroupService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
         $this->adminService = $adminService;
+        $this->optionService = $optionService;
+        $this->optionGroupService = $optionGroupService;
     }
     /**
      * @Route("/", name="product_index", methods={"GET"})
@@ -50,6 +58,8 @@ class AdminProductController extends AbstractController
     public function new(Request $request): Response
     {
         $categories = $this->categoryService->getAll();
+        $options = $this->optionService->getAll();
+        $optionGroups = $this->optionGroupService->getAll();
         $product = new Product();
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
@@ -70,6 +80,8 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/new.html.twig', [
             'product' => $product,
             'categories' => $categories,
+            'options' => $options,
+            'optionGroups' => $optionGroups,
             'productTranslationEn' => $productFirstTranslation,
             'productTranslationBg' => $productSecondTranslation,
             'form' => $form->createView(),
