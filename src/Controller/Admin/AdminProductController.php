@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Entity\ProductOption;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
 use App\Repository\ProductRepository;
@@ -63,6 +64,7 @@ class AdminProductController extends AbstractController
         $product = new Product();
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
+        $productOptions = new ProductOption();
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
         
@@ -78,6 +80,7 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/new.html.twig', [
+            'admin' => $this->adminService->currentAdmin(),
             'product' => $product,
             'categories' => $categories,
             'options' => $options,

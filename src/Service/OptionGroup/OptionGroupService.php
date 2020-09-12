@@ -15,6 +15,6 @@ class OptionGroupService implements OptionGroupServiceInterface
 
     public function getAll()
     {
-        $this->optionGroupRepository->findAll();
+        return $this->optionGroupRepository->findAll();
     }
 }

@@ -13,6 +13,6 @@ class OptionService implements OptionServiceInterface
     }
     public function getAll()
     {
-        $this->optionRepository->findAll();
+        return $this->optionRepository->findAll();
     }
 }

@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Security;
 class DashboardController extends AbstractController
 {
     private $adminService;
-    private $security;
     private $userRepository;
 
     public function __construct(AdminServiceInterface $adminService,

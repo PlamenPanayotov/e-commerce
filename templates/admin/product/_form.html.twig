@@ -29,6 +29,22 @@
     </select>
   </div>
   <div>
+    <label for="country">Опции</label>
+    <select class="custom-select d-block w-100"
+      name="admin_product[option]"
+      id="admin_product_option_id"
+      required="">
+      <option value="">
+        Избери...
+      </option>
+      {% for option in optionGroups %}
+        <option value="{{ option.id }}" name="product[option]">
+          {{ option.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
     <label for="admin_product_name" class="required">Name</label><input type="text"
       id="admin_product_name"
       name="admin_product[name]"
