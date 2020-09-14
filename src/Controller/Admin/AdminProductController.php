@@ -12,6 +12,7 @@ use App\Service\Admin\AdminServiceInterface;
 use App\Service\Category\CategoryServiceInterface;
 use App\Service\Option\OptionServiceInterface;
 use App\Service\OptionGroup\OptionGroupServiceInterface;
+use App\Service\Product\ProductOptionServiceInterface;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,18 +29,21 @@ class AdminProductController extends AbstractController
     private $adminService;
     private $optionService;
     private $optionGroupService;
+    private $productOptionService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
                                 AdminServiceInterface $adminService,
                                 OptionServiceInterface $optionService,
-                                OptionGroupServiceInterface $optionGroupService)
+                                OptionGroupServiceInterface $optionGroupService,
+                                ProductOptionServiceInterface $productOptionService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
         $this->adminService = $adminService;
         $this->optionService = $optionService;
         $this->optionGroupService = $optionGroupService;
+        $this->productOptionService = $productOptionService;
     }
     /**
      * @Route("/", name="product_index", methods={"GET"})
@@ -65,11 +69,13 @@ class AdminProductController extends AbstractController
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
         $productOptions = new ProductOption();
+        // TODO - set product option
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
+            $this->productOptionService->setProductOptions($productOptions, $product, $options, $optionGroups);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->persist($productFirstTranslation);

@@ -15,4 +15,9 @@ class OptionService implements OptionServiceInterface
     {
         return $this->optionRepository->findAll();
     }
+
+    public function getAllByOneGroup(int $id)
+    {
+        return $this->optionRepository->findBy(['group' => $id]);
+    }
 }

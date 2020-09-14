@@ -4,4 +4,6 @@ namespace App\Service\Option;
 interface OptionServiceInterface
 {
     public function getAll();
+
+    public function getAllByOneGroup(int $id);
 }

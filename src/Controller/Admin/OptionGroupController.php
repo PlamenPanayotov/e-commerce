@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\OptionGroup;
 use App\Form\Admin\OptionGroupType;
 use App\Repository\OptionGroupRepository;
+use App\Service\Option\OptionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OptionGroupController extends AbstractController
 {
+    private $optionService;
+
+    public function __construct(OptionServiceInterface $optionService)
+    {
+        $this->optionService = $optionService;
+    }
     /**
      * @Route("/", name="option_group_index", methods={"GET"})
      */
@@ -53,8 +60,10 @@ class OptionGroupController extends AbstractController
      */
     public function show(OptionGroup $optionGroup): Response
     {
+        $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
         return $this->render('admin/option_group/show.html.twig', [
             'option_group' => $optionGroup,
+            'options' => $options
         ]);
     }
 
