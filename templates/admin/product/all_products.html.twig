@@ -25,6 +25,7 @@
                       <th>Description</th>
                       <th>Price</th>
                       <th>Category</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -33,15 +34,20 @@
                       <th>Description</th>
                       <th>Price</th>
                       <th>Category</th>
+                      <th>Actions</th>
                     </tr>
                   </tfoot>
                   <tbody>
                   {% for product in products %}
                     <tr>
-                      <td>{{ product.name }}</td>
+                      <td>{{ product.product.id }}</td>
                       <td>{{ product.description }}</td>
                       <td>{{ product.product.price }}</td>
                       <td>{{ product.product.category.name }}</td>
+                       <td>
+                    <a href="{{ path('product_show', {'id': product.product.id}) }}">show</a>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                </td>
                     </tr>
                     {% endfor %}
                   </tbody>

@@ -63,25 +63,32 @@ class AdminProductController extends AbstractController
     public function new(Request $request): Response
     {
         $categories = $this->categoryService->getAll();
-        $options = $this->optionService->getAll();
         $optionGroups = $this->optionGroupService->getAll();
+
         $product = new Product();
         $productFirstTranslation = new ProductTranslation();
         $productSecondTranslation = new ProductTranslation();
-        $productOptions = new ProductOption();
-        // TODO - set product option
+
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $optionGroup = $form->get('option')->getData();
+            $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
-            $this->productOptionService->setProductOptions($productOptions, $product, $options, $optionGroups);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
-            $entityManager->flush();
+            
 
+            foreach ($options as $option) {
+                $productOption = new ProductOption();
+                $this->productOptionService->setProductOptions($productOption, $product, $optionGroup, $option, $form);
+
+                $entityManager->persist($productOption);
+            }
+            $entityManager->flush();
             return $this->redirectToRoute('product_index');
         }
 
@@ -89,7 +96,6 @@ class AdminProductController extends AbstractController
             'admin' => $this->adminService->currentAdmin(),
             'product' => $product,
             'categories' => $categories,
-            'options' => $options,
             'optionGroups' => $optionGroups,
             'productTranslationEn' => $productFirstTranslation,
             'productTranslationBg' => $productSecondTranslation,
@@ -102,8 +108,10 @@ class AdminProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+        $options = $this->optionService->getAllByOneProduct($product->getId());
         return $this->render('admin/product/show.html.twig', [
             'product' => $product,
+            'options' => $options
         ]);
     }
 

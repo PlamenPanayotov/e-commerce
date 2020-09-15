@@ -24,6 +24,10 @@ class AdminProductType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class
             ])
+            ->add('option', EntityType::class, [
+                'class' => OptionGroup::class,
+                'mapped' => false
+            ])
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             
@@ -42,10 +46,10 @@ class AdminProductType extends AbstractType
                 ->add('metaDescription_bg', TextareaType::class, ['mapped' => false])
                 ->add('shortDescription_bg', TextareaType::class, ['mapped' => false])
                 
-                ->add('option_group', FormType::class, [
-                    'data_class' => OptionGroupType::class,
-                    'mapped' => false
-                ])
+                // ->add('option_group', FormType::class, [
+                //     'data_class' => OptionGroupType::class,
+                //     'mapped' => false
+                // ])
             
         ;
     }

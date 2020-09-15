@@ -5,5 +5,7 @@ interface OptionServiceInterface
 {
     public function getAll();
 
-    public function getAllByOneGroup(int $id);
+    public function getAllByOneGroup(int $groupId);
+
+    public function getAllByOneProduct(int $productId);
 }
