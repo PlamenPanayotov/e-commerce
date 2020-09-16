@@ -76,7 +76,7 @@ class Category
             if ($cookie != 'en_US' && $cookie != 'bg_BG') {
                 return $this->nameBg;
             } else {
-                return $this->name;
+                return $cookie == 'en_US' ? $this->name : $this->nameBg;
             }
         } else {
             return $this->nameBg;

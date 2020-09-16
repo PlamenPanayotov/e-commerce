@@ -73,21 +73,25 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $optionGroup = $form->get('option')->getData();
-            $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
+           
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
-            
 
-            foreach ($options as $option) {
-                $productOption = new ProductOption();
-                $this->productOptionService->setProductOptions($productOption, $product, $optionGroup, $option, $form);
+            $optionGroup = $form->get('option')->getData();
+            if ($optionGroup != null) {
+                $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
 
-                $entityManager->persist($productOption);
+                foreach ($options as $option) {
+                    $productOption = new ProductOption();
+                    $this->productOptionService->setProductOptions($productOption, $product, $optionGroup, $option, $form);
+                    $entityManager->persist($productOption);
+                }
             }
+            
+            
             $entityManager->flush();
             return $this->redirectToRoute('product_index');
         }
@@ -120,6 +124,7 @@ class AdminProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
+        // TODO I have to edit editForm. It have to edit product and add them options and set the options!
         $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
         $productTranslationEn = $productTranslations[0];
         $productTranslationBg = $productTranslations[1];

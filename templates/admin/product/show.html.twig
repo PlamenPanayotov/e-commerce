@@ -43,16 +43,18 @@
           {{ product.price }}
         </td>
       </tr>
-      <tr>
-        <th>
-          Options
-        </th>
-        <td>
-          {% for option in options %}
-            {{ option.name }}
-          {% endfor %}
-        </td>
-      </tr>
+      {% if options %}
+        <tr>
+          <th>
+            {{ options[0].group }}
+          </th>
+          <td>
+            {% for option in options %}
+              {{ option.name }}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endif %}
     </tbody>
   </table>
 
