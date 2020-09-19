@@ -80,17 +80,7 @@ class AdminProductController extends AbstractController
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
 
-            $optionGroup = $form->get('option')->getData();
-            if ($optionGroup != null) {
-                $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
-
-                foreach ($options as $option) {
-                    $productOption = new ProductOption();
-                    $this->productOptionService->setProductOptions($productOption, $product, $optionGroup, $option, $form);
-                    $entityManager->persist($productOption);
-                }
-            }
-            
+            $this->productOptionService->addOptions($product, $form, $entityManager);            
             
             $entityManager->flush();
             return $this->redirectToRoute('product_index');
@@ -125,6 +115,7 @@ class AdminProductController extends AbstractController
     public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
         // TODO I have to edit editForm. It have to edit product and add them options and set the options!
+        $optionGroups = $this->optionGroupService->getAll();
         $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
         $productTranslationEn = $productTranslations[0];
         $productTranslationBg = $productTranslations[1];
@@ -132,8 +123,11 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            
+            $entityManager = $this->getDoctrine()->getManager();
 
+            $this->productOptionService->addOptions($product, $form, $entityManager);
+            $entityManager->flush();
             return $this->redirectToRoute('product_index');
         }
 
@@ -142,6 +136,7 @@ class AdminProductController extends AbstractController
             'categories' => $this->categoryService->getAll(),
             'productTranslationEn' => $productTranslationEn,
             'productTranslationBg' => $productTranslationBg,
+            'optionGroups' => $optionGroups,
             'form' => $form->createView(),
         ]);
     }

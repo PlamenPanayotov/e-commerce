@@ -14,4 +14,6 @@ interface ProductOptionServiceInterface
                                         OptionGroup $optionGroup,
                                         Option $option, 
                                         Form $form);
+
+    public function addOptions($product, $form, $em);
 }
