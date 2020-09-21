@@ -87,7 +87,6 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/new.html.twig', [
-            'admin' => $this->adminService->currentAdmin(),
             'product' => $product,
             'categories' => $categories,
             'optionGroups' => $optionGroups,
@@ -114,7 +113,6 @@ class AdminProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
-        // TODO I have to edit editForm. It have to edit product and add them options and set the options!
         $optionGroups = $this->optionGroupService->getAll();
         $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
         $productTranslationEn = $productTranslations[0];

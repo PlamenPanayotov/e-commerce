@@ -1,17 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/index.html.twig' %}
 
 {% block title %}
   Edit Product
 {% endblock %}
 
-{% block body %}
+{% block content %}
   <h1>
     Edit Product
   </h1>
-<form name="admin_product" method="post">
+  <form name="admin_product" method="post">
     {{ include('admin/product/_form.html.twig') }}
   </form>
-  
 
   <a href="{{ path('product_index') }}">back to list</a>
 

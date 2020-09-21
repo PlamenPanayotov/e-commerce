@@ -4,3 +4,5 @@ User:
   register: Регистрация
   logout: Изход
   hello: Здравейте!
+Product:  
+  add: Добави продукт

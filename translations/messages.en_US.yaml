@@ -4,3 +4,5 @@ User:
   register: Register
   logout: Logout
   hello: Hello!
+Product:  
+  add: Add product
