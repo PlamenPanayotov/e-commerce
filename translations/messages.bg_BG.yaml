@@ -4,5 +4,6 @@ User:
   register: Регистрация
   logout: Изход
   hello: Здравейте!
-Product:  
+Product:
   add: Добави продукт
+  all: Всички продкти
