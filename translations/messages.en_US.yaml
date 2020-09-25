@@ -7,3 +7,5 @@ User:
 Product:
   add: Add product
   all: All products
+  with: Product with options
+  without: Product without options

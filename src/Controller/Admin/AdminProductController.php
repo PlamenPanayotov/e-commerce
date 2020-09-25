@@ -58,7 +58,7 @@ class AdminProductController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="product_new", methods={"GET","POST"})
+     * @Route("/new/{options}", name="product_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -80,8 +80,9 @@ class AdminProductController extends AbstractController
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
 
-            $this->productOptionService->addOptions($product, $form, $entityManager);            
-            
+            if($request->query->get('options') == true) {
+                $this->productOptionService->addOptions($product, $form, $entityManager);
+            }
             $entityManager->flush();
             return $this->redirectToRoute('product_index');
         }

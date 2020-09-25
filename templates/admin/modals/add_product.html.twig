@@ -25,9 +25,28 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">
-          <a href="{{ path('product_new') }}">Save changes</a>
-        </button>
+        <a href="{{
+          path(
+            'product_new',
+            {
+              options: 'true'
+            }
+          )
+          }}"
+          class="btn btn-primary">
+          {% trans %}Product.with{% endtrans %}
+        </a>
+        <a href="{{
+          path(
+            'product_new',
+            {
+              options: 'false'
+            }
+          )
+          }}"
+          class="btn btn-primary">
+          {% trans %}Product.without{% endtrans %}
+        </a>
       </div>
     </div>
   </div>
