@@ -80,7 +80,7 @@ class AdminProductController extends AbstractController
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
 
-            if($request->query->get('options') == true) {
+            if($request->get('options') == true) {
                 $this->productOptionService->addOptions($product, $form, $entityManager);
             }
             $entityManager->flush();

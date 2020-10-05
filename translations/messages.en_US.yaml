@@ -1,11 +1,15 @@
+Admin:
+  Product:
+    add: Add product
+    all: All products
+    show: show
+    edit: edit
+    with: Product with options
+    without: Product without options
+
 User:
   login: Login
   profile: Profile page
   register: Register
   logout: Logout
   hello: Hello!
-Product:
-  add: Add product
-  all: All products
-  with: Product with options
-  without: Product without options

@@ -1,11 +1,14 @@
+Admin:
+  Product:
+    add: Добави продукт
+    all: Всички продкти
+    show: покажи
+    edit: промени
+    with: Продукт с опции
+    without: Продукт без опции
 User:
   login: Вход
   profile: Профил
   register: Регистрация
   logout: Изход
   hello: Здравейте!
-Product:
-  add: Добави продукт
-  all: Всички продкти
-  with: Продукт с опции
-  without: Продукт без опции
