@@ -2,10 +2,20 @@ Admin:
   Product:
     add: Добави продукт
     all: Всички продкти
+    products: Продукти
     show: покажи
     edit: промени
     with: Продукт с опции
     without: Продукт без опции
+    dashboard: Контролно табло
+    components: Компоненти
+    settings: Настройки
+    categories: Категории
+    options: Опции
+    option_groups: Групи опции
+    language: Език
+    english: Английски
+    bulgarian: Български
 User:
   login: Вход
   profile: Профил

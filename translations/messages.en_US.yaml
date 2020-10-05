@@ -2,11 +2,20 @@ Admin:
   Product:
     add: Add product
     all: All products
+    products: Products
     show: show
     edit: edit
     with: Product with options
     without: Product without options
-
+    dashboard: Dashboard
+    components: Components
+    settings: Settings
+    categories: Categories
+    options: Options
+    option_groups: Option groups
+    language: Language
+    english: English
+    bulgarian: Bulgarian
 User:
   login: Login
   profile: Profile page
