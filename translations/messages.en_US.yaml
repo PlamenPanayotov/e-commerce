@@ -1,24 +1,29 @@
-Admin:
-  Product:
-    add: Add product
-    all: All products
-    products: Products
-    show: show
-    edit: edit
-    with: Product with options
-    without: Product without options
-    dashboard: Dashboard
-    components: Components
-    settings: Settings
-    categories: Categories
-    options: Options
-    option_groups: Option groups
-    language: Language
-    english: English
-    bulgarian: Bulgarian
-User:
+admin:
+  dashboard: Dashboard
+  components: Components
+  settings: Settings
+  interface: Interface
+
+user:
   login: Login
-  profile: Profile page
+  profile: Profile
   register: Register
   logout: Logout
   hello: Hello!
+
+product:
+  add: Add product
+  all: All products
+  products: Products
+  show: show
+  edit: edit
+  with_options: Product with options
+  without_options: Product without options
+  categories: Categories
+  options: Options
+  option_groups: Option groups
+
+language:
+  language: Language
+  english: English
+  bulgarian: Bulgarian

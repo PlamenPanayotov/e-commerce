@@ -19,30 +19,30 @@
     {% endif %}
     {% if app.user %}
       <h1>
-        {% trans %}User.hello{% endtrans %}
+        {% trans %}user.hello{% endtrans %}
       </h1>
       <h1>
-        {% trans %}User.hello{% endtrans %} {{ user.username }}! ✅
+        {% trans %}user.hello{% endtrans %} {{ user.username }}! ✅
       </h1>
       <li class="nav-item">
         <a href="{{ path('user_profile') }}">
-          {% trans %}User.profile{% endtrans %}
+          {% trans %}user.profile{% endtrans %}
         </a>
       </li>
       <li>
         <a href="{{ path('app_logout') }}">
-          {% trans %}User.logout{% endtrans %}
+          {% trans %}user.logout{% endtrans %}
         </a>
       </li>
     {% else %}
       <li class="nav-item">
         <a href="{{ path('app_register') }}">
-          {% trans %}User.register{% endtrans %}
+          {% trans %}user.register{% endtrans %}
         </a>
       </li>
       <li>
         <a href="{{ path('app_login') }}">
-          {% trans %}User.login{% endtrans %}
+          {% trans %}user.login{% endtrans %}
         </a>
       </li>
     {% endif %}This friendly message is coming from:<ul>

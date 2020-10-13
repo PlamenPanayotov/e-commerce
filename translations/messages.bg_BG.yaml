@@ -1,24 +1,29 @@
-Admin:
-  Product:
-    add: Добави продукт
-    all: Всички продкти
-    products: Продукти
-    show: покажи
-    edit: промени
-    with: Продукт с опции
-    without: Продукт без опции
-    dashboard: Контролно табло
-    components: Компоненти
-    settings: Настройки
-    categories: Категории
-    options: Опции
-    option_groups: Групи опции
-    language: Език
-    english: Английски
-    bulgarian: Български
-User:
+admin:
+  dashboard: Контролно табло
+  components: Компоненти
+  settings: Настройки
+  interface: Интерфейс
+
+user:
   login: Вход
   profile: Профил
   register: Регистрация
   logout: Изход
   hello: Здравейте!
+
+product:
+  add: Добави продукт
+  all: Всички продкти
+  products: Продукти
+  show: покажи
+  edit: промени
+  with_options: Продукт с опции
+  without_options: Продукт без опции
+  categories: Категории
+  options: Опции
+  option_groups: Групи опции
+
+language:
+  language: Език
+  english: Английски
+  bulgarian: Български

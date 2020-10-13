@@ -25,10 +25,10 @@ class LocaleSubscriber implements EventSubscriberInterface
                 $request->setLocale($cookie);
 
                 if ($cookie != 'en_US' && $cookie != 'bg_BG') {
-                    $request->setLocale('en_US');
+                    $request->setLocale('bg_BG');
                 }
             } else {
-                $request->setLocale('en_US');
+                $request->setLocale('bg_BG');
             }
         }
     }

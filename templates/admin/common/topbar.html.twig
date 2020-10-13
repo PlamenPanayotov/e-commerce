@@ -15,7 +15,7 @@
         aria-label="Search"
         aria-describedby="basic-addon2" />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button">
+        <button class="btn btn-comforta" type="button">
           <i class="fas fa-search fa-sm"></i>
         </button>
       </div>
@@ -241,6 +241,36 @@
           <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
           Settings
         </a>
+        <a class="dropdown-item"
+          id="languageDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          href="#">
+          <i class="fas fa-globe fa-fw mr-2 text-gray-400"></i>
+            {% trans %}language.language{% endtrans %}
+          </a>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          aria-labelledby="languageDropdown">
+          {% if app.request.locale == 'en_US' %} 
+          <a class="dropdown-item" href="{{ path('admin-change-locale', { locale: 'bg_BG' })}}">
+            <img class="rounded-circle rounded-sm" src="{{ asset('/img/flags/bg.png')}}" style="width:20px">
+            <span class="text-gray-1200">
+          Български
+        </span>
+            </a>
+          {% else %}
+
+            <a class="dropdown-item" href="{{ path('admin-change-locale', { locale: 'en_US' })}}">
+            <img class="rounded-circle rounded-sm" src="{{ asset('/img/flags/gb.png')}}" style="width:20px">
+            <span class="text-gray-1200">
+          English
+        </span>
+            </a>
+          {% endif %}
+        </div>
         <a class="dropdown-item" href="#">
           <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
           Activity Log
