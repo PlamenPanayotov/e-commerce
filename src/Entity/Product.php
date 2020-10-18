@@ -49,10 +49,30 @@ class Product
      */
     private $productOptions;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="product", cascade={"persist"})
+     */
+    private $attachments;
+    
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->productOptions = new ArrayCollection();
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
+        $this->attachments = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -160,5 +180,60 @@ class Product
     public function getProductOptions(): Collection
     {
         return $this->productOptions;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Attachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Attachment $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getProduct() === $this) {
+                $attachment->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

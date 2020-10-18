@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Attachment;
 use App\Entity\Product;
 use App\Entity\ProductOption;
 use App\Entity\ProductTranslation;
@@ -9,6 +10,7 @@ use App\Form\Admin\AdminProductType;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
 use App\Service\Admin\AdminServiceInterface;
+use App\Service\Attachment\AttachmentServiceInterface;
 use App\Service\Category\CategoryServiceInterface;
 use App\Service\Option\OptionServiceInterface;
 use App\Service\OptionGroup\OptionGroupServiceInterface;
@@ -30,13 +32,15 @@ class AdminProductController extends AbstractController
     private $optionService;
     private $optionGroupService;
     private $productOptionService;
+    private $attachmentService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
                                 AdminServiceInterface $adminService,
                                 OptionServiceInterface $optionService,
                                 OptionGroupServiceInterface $optionGroupService,
-                                ProductOptionServiceInterface $productOptionService)
+                                ProductOptionServiceInterface $productOptionService,
+                                AttachmentServiceInterface $attachmentService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
@@ -44,6 +48,7 @@ class AdminProductController extends AbstractController
         $this->optionService = $optionService;
         $this->optionGroupService = $optionGroupService;
         $this->productOptionService = $productOptionService;
+        $this->attachmentService = $attachmentService;
     }
     /**
      * @Route("/", name="product_index", methods={"GET"})
@@ -54,6 +59,7 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/all_products.html.twig', [
             'products' => $productTranslationRepository->findBy(['locale' => $locale]),
             'admin' => $this->adminService->currentAdmin(),
+            'attachments' => $this->attachmentService->getAttachments()
         ]);
     }
 
@@ -73,12 +79,16 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
+ 
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->persist($productFirstTranslation);
             $entityManager->persist($productSecondTranslation);
+        
+            $directory = $this->getParameter('uploads_directory');
+            $files = $request->files->get('admin_product')['images'];
+            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager);
 
             if($request->get('options') == true) {
                 $this->productOptionService->addOptions($product, $form, $entityManager);

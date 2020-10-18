@@ -7,6 +7,7 @@ parameters:
   locale: bg_BG
   activated_locales: ['%locale%', 'bg_BG']
   locales_requirements: '%locale%|bg_BG'
+  uploads_directory: '%kernel.project_dir%/public/uploads'
 services:
   # default configuration for services in *this* file
   _defaults:

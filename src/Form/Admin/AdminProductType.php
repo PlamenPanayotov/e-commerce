@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Entity\ProductOption;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,6 +31,10 @@ class AdminProductType extends AbstractType
             ])
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('images', FileType::class, [
+                'mapped' => false,
+                'multiple' => true
+            ])
             
                 
                 ->add('name_en', TextType::class, [
