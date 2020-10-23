@@ -18,21 +18,6 @@ function previewFile(input) {
         radio.setAttribute('id', i.name);
         radio.setAttribute('class', 'checkbox');
         radio.setAttribute('name', i.name);
-        // radio.setAttribute('onclick', 'choice(this);');
         newImg.after(radio);
-    }
-}
-
-function choice(input) {
-    let radios = document.getElementsByClassName('checkbox');
-    for (const radio of radios) {
-        if (radio === input) {
-            radio.setAttribute('name', 'primary');
-            radio.value = true;
-        } else {
-            radio.setAttribute('name', '');
-            radio.checked = false;
-            radio.value = false;
-        }
     }
 }
