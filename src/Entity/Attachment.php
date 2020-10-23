@@ -25,7 +25,7 @@ class Attachment
     /**
      * @ORM\Column(type="boolean")
      */
-    private $primary;
+    private bool $isPrimary = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="attachments")
@@ -49,6 +49,17 @@ class Attachment
         return $this;
     }
 
+    public function isPrimary(): ?bool
+    {
+        return $this->isPrimary;
+    }
+    public function setIsPrimary(bool $isPrimary): self
+    {
+        $this->isPrimary = $isPrimary;
+
+        return $this;
+    }
+
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -57,17 +68,6 @@ class Attachment
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-
-        return $this;
-    }
-
-    public function getPrimary(): ?bool
-    {
-        return $this->primary;
-    }
-    public function setPrimary(bool $primary): self
-    {
-        $this->primary = $primary;
 
         return $this;
     }

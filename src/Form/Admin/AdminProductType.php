@@ -6,13 +6,16 @@ use App\Entity\Category;
 use App\Entity\OptionGroup;
 use App\Entity\Product;
 use App\Entity\ProductOption;
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminProductType extends AbstractType
@@ -33,8 +36,11 @@ class AdminProductType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('images', FileType::class, [
                 'mapped' => false,
-                'multiple' => true
+                'multiple' => true              
             ])
+            // ->add('primary', CheckboxType::class, [
+            //     'mapped' => false
+            // ])
             
                 
                 ->add('name_en', TextType::class, [

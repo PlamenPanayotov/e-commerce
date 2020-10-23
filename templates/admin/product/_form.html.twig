@@ -60,7 +60,14 @@
   </div>
   <div>
     <label for="admin_product_images" class="required">Images</label>
-    <input type="file" id="admin_product_images" name="admin_product[images][]" multiple="multiple" required="required"
+    <input type="file"
+      id="admin_product_images"
+      name="admin_product[images][]"
+      multiple="multiple"
+      onchange="previewFile(this);"
+      required="required" />
+
+    {# <input type="radio" name="admin_product[primary]" hidden /> #}
   </div>
   <div>
     <label for="admin_product_name_en" class="required">Name en</label><input type="text"

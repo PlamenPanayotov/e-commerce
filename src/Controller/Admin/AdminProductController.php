@@ -88,7 +88,8 @@ class AdminProductController extends AbstractController
         
             $directory = $this->getParameter('uploads_directory');
             $files = $request->files->get('admin_product')['images'];
-            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager);
+            
+            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager, $request);
 
             if($request->get('options') == true) {
                 $this->productOptionService->addOptions($product, $form, $entityManager);
