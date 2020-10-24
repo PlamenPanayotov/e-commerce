@@ -34,4 +34,20 @@ class AttachmentService implements AttachmentServiceInterface
     {
         return $this->attachmentRepository->findAll();
     }
+
+    public function getAllByOneProduct(Product $product)
+    {
+        return $this->attachmentRepository->findBy(['product' => $product]);
+    }
+
+    public function getPrimaryImage(Product $product)
+    {
+        $attachments = $this->getAllByOneProduct($product);
+        foreach ($attachments as $attachment) {
+            if($attachment->isPrimary()) {
+                return $attachment;
+            }
+        }
+        return null;
+    }
 }

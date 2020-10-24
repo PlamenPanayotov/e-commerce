@@ -48,7 +48,14 @@
                   <tbody>
                   {% for product in products %}
                     <tr>
-                      <td>{{ product.product.id }}</td>
+                      <td><img 
+                      {% for attachment in attachments %}
+                        {% if attachment.product.id == product.id and attachment.isPrimary == true %}
+                          src="/uploads/{{ attachment.image }}" style="object-fit: cover; width:100px;height:100px;"
+                        {% endif %}
+                      {% endfor %}>
+                      </td>
+                 
                       <td>{{ product.description }}</td>
                       <td>{{ product.product.price }}</td>
                       <td>{{ product.product.category.name }}</td>
