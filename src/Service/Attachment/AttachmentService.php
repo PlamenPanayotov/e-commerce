@@ -26,8 +26,10 @@ class AttachmentService implements AttachmentServiceInterface
             if($request->get($primary)) {
                 $attachment->setIsPrimary(true);
             }
+            
             $entityManager->persist($attachment);
         }
+        
     }
 
     public function getAttachments()

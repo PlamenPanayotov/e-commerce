@@ -94,6 +94,7 @@ class AdminProductController extends AbstractController
             if($request->get('options') == true) {
                 $this->productOptionService->addOptions($product, $form, $entityManager);
             }
+          
             $entityManager->flush();
             return $this->redirectToRoute('product_index');
         }
