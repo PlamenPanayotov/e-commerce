@@ -23,17 +23,17 @@ class ProductOption
     private $priceIncrement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="product_options")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="productOptions")
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Option", inversedBy="product_options")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Option", inversedBy="productOptions")
      */
     private $option;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OptionGroup", inversedBy="product_options")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OptionGroup", inversedBy="productOptions")
      */
     private $optionGroup;
 

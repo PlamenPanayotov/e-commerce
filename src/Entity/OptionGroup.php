@@ -30,7 +30,7 @@ class OptionGroup
     private $options;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductOption", mappedBy="option_group")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOption", mappedBy="optionGroup")
      */
     private $productOptions;
 
