@@ -105,6 +105,7 @@ class AdminProductController extends AbstractController
             'optionGroups' => $optionGroups,
             'productTranslationEn' => $productFirstTranslation,
             'productTranslationBg' => $productSecondTranslation,
+            'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
             'form' => $form->createView(),
         ]);
     }
@@ -136,6 +137,14 @@ class AdminProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $entityManager = $this->getDoctrine()->getManager();
+            
+            $directory = $this->getParameter('uploads_directory');
+            
+            $files = $request->files->get('admin_product')['images'];
+            // dump($files);
+            // exit;
+            
+            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager, $request);
 
             $this->productOptionService->addOptions($product, $form, $entityManager);
             $entityManager->flush();
@@ -148,6 +157,8 @@ class AdminProductController extends AbstractController
             'productTranslationEn' => $productTranslationEn,
             'productTranslationBg' => $productTranslationBg,
             'optionGroups' => $optionGroups,
+            'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
+            'attachments' => $this->attachmentService->getNamesByProduct($product),
             'form' => $form->createView(),
         ]);
     }

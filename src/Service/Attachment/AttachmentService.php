@@ -52,4 +52,15 @@ class AttachmentService implements AttachmentServiceInterface
         }
         return null;
     }
+
+    public function getNamesByProduct(Product $product)
+    {
+        $attachments = $this->attachmentRepository->findBy((['product' => $product]));
+        $names = [];
+        foreach ($attachments as $attachment) {
+            $name = $attachment->getImage();
+            $names[] = $name;
+        }
+        return $names;
+    }
 }

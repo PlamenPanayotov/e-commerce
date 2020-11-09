@@ -16,4 +16,8 @@ interface ProductOptionServiceInterface
                                         Form $form);
 
     public function addOptions($product, $form, $em);
+
+    public function getProductOptionsByProduct(int $productId = null);
+
+    public function getOptionGroupsByProduct(int $productId = null);
 }

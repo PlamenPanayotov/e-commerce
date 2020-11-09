@@ -22,6 +22,9 @@ product:
   categories: Categories
   options: Options
   option_groups: Option groups
+  price: Price
+  new: New product
+  editProduct: Edit product
 
 language:
   language: Language

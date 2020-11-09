@@ -12,4 +12,6 @@ interface AttachmentServiceInterface
     public function getAllByOneProduct(Product $product);
 
     public function getPrimaryImage(Product $product);
+
+    public function getNamesByProduct(Product $product);
 }

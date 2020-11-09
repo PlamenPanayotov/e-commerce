@@ -33,7 +33,6 @@ class AdminProductType extends AbstractType
                 'mapped' => false
             ])
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
             ->add('images', FileType::class, [
                 'mapped' => false,
                 'multiple' => true              

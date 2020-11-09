@@ -22,6 +22,9 @@ product:
   categories: Категории
   options: Опции
   option_groups: Групи опции
+  price: Цена
+  new: Нов продукт
+  editProduct: Промяна на продукт
 
 language:
   language: Език

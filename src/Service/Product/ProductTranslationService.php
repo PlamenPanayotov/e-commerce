@@ -13,7 +13,6 @@ class ProductTranslationService implements ProductTranslationServiceInterface
                                     Product $product): bool
     {
         $product->setName($form->get('name_en')->getData());
-        $product->setDescription($form->get('description_en')->getData());
         $fitstTranslation->setName($form->get('name_en')->getData());
         $fitstTranslation->setDescription($form->get('description_en')->getData());
         $fitstTranslation->setMetaKeywords($form->get('metaKeywords_en')->getData());

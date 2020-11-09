@@ -24,6 +24,9 @@
       <h1>
         {% trans %}user.hello{% endtrans %} {{ user.username }}! ✅
       </h1>
+      {# <div id="app" data-user="{% trans %}user.hello{% endtrans %}">
+        <App />
+      </div> #}
       <li class="nav-item">
         <a href="{{ path('user_profile') }}">
           {% trans %}user.profile{% endtrans %}
@@ -71,9 +74,6 @@
             Name
           </th>
           <th>
-            Description
-          </th>
-          <th>
             Price
           </th>
           <th>
@@ -91,9 +91,6 @@
               {{ product.name }}
             </td>
             <td>
-              {{ product.description }}
-            </td>
-            <td>
               {{ product.price }}
             </td>
             <td>
@@ -109,6 +106,5 @@
         {% endfor %}
       </tbody>
     </table>
-    <div id="app"></div>
   </div>
 {% endblock %}

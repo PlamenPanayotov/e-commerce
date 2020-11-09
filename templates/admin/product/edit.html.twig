@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block content %}
-  <h1>
-    Edit Product
-  </h1>
-  <form name="admin_product" method="post">
-    {{ include('admin/product/_form.html.twig') }}
-  </form>
+  <div class="container-fluid">
+    <h1>
+      {% trans %}product.editProduct{% endtrans %}
+    </h1>
+    <form name="admin_product_edit" enctype="multipart/form-data" method="post">
+      {{ include('admin/product/_form.html.twig') }}
+    </form>
 
-  <a href="{{ path('product_index') }}">back to list</a>
+    <a href="{{ path('product_index') }}">back to list</a>
 
-  {{ include('admin/product/_delete_form.html.twig') }}
+    {{ include('admin/product/_delete_form.html.twig') }}
+  </div>
 {% endblock %}
