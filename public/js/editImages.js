@@ -18,7 +18,7 @@ $(function () {
             overwriteInitial: true,
             maxFileSize: 500,
             multiple: true,
-            uploadUrl: true
+            // uploadUrl: true
 
         });
     }

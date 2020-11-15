@@ -37,9 +37,6 @@ class AdminProductType extends AbstractType
                 'mapped' => false,
                 'multiple' => true              
             ])
-            // ->add('primary', CheckboxType::class, [
-            //     'mapped' => false
-            // ])
             
                 
                 ->add('name_en', TextType::class, [

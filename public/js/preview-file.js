@@ -1,24 +1,69 @@
-let img = document.getElementById('admin_product_images');
-let sortable = document.getElementById('sortable');
-function previewFile(input) {
-    let files = input.files
-    for (let i of files) {
-        let reader = new FileReader();
-        let div = document.createElement('div');
-        div.className = 'col-sm';
-        let newImg = document.createElement('img');
-        newImg.style.height = '150px';
-        newImg.style.width = '150px';
-        newImg.style.margin = '10px';
-        reader.onload = function () {
-            let result = reader.result;
-            newImg.src = result;
-        };
-        reader.readAsDataURL(i);
-        div.appendChild(newImg);
-        sortable.appendChild(div);
+
+// const sortableDiv = document.getElementById('sortable');
+let attachments = document.getElementById('admin_product_images').dataset('attachments');
+console.log(attachments);
+function preview(input) {
+    console.log(input.nextElementSibling);
+    if (input.nextElementSibling) {
+        input.nextElementSibling.remove();
+    }
+    let files = input.files;
+    if (files) {
+        let row = document.createElement('div');
+        row.className = 'row';
+        input.after(row);
+        for (let file of files) {
+            let reader = new FileReader();
+            let imgDiv = document.createElement('div');
+            imgDiv.className = 'images col-sm';
+            let previewImage = document.createElement('img');
+            previewImage.style.height = '150px';
+            previewImage.className = 'img-thumbnail';
+            previewImage.setAttribute('id', file.name);
+            reader.onload = function () {
+                let result = reader.result;
+                previewImage.src = result;
+            }
+            reader.readAsDataURL(file);
+            imgDiv.appendChild(previewImage);
+            row.appendChild(imgDiv);
+        }
     }
 }
+// preview();
+
+
+
+
+
+// let img = document.getElementById('admin_product_images');
+// let sortable = document.getElementById('sortable');
+// function previewFile(input) {
+//     let files = input.files
+//     for (let i of files) {
+//         let reader = new FileReader();
+//         let div = document.createElement('div');
+//         div.className = 'col-sm';
+//         let newImg = document.createElement('img');
+//         newImg.style.height = '150px';
+//         newImg.className = 'img-thumbnail';
+//         // newImg.style.width = '150px';
+//         // newImg.style.margin = '10px';
+//         reader.onload = function () {
+//             let result = reader.result;
+//             newImg.src = result;
+//         };
+//         reader.readAsDataURL(i);
+//         div.appendChild(newImg);
+//         sortable.appendChild(div);
+//     }
+//     console.log(input);
+// }
+// $(function () {
+//     $('#admin_product_images').on("change", function () {
+//         console.log($('.img-thumbnail'));
+//     })
+// })
 
 
 

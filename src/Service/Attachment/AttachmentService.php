@@ -22,8 +22,7 @@ class AttachmentService implements AttachmentServiceInterface
             $attachment = new Attachment();
             $attachment->setProduct($product);
             $attachment->setImage($filename);
-            $primary = str_replace(".", "_", $file->getClientOriginalName());
-            if($request->get($primary)) {
+            if($file == $files[count($files) - 1]) {
                 $attachment->setIsPrimary(true);
             }
             

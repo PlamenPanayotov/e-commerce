@@ -83,30 +83,31 @@
 </div>
 <div class="form-row">
 <div class="form-group col-md-12">
+  <label for="admin_product_prymary" class="ml-md-auto">Primary image</label>
+    <input type="file" class="file" id="admin_product_prymary" name="admin_product_primary" onchange="preview(this);">
+</div>
+<div class="form-group col-md-12">
   <label for="admin_product_images" class="ml-md-auto">Images</label>
-     
     <input type="file"
-      class="form-control"
+      class="file"
       id="admin_product_images"
       name="admin_product[images][]"
-      data-show-upload="false"
+      data-show-upload="true"
       multiple="multiple"
       {% if attachments is defined %}
         data-attachments="{{ attachments|json_encode }}"
       {% endif %}
-      onchange="previewFile(this);"
+      onchange="preview(this);"
        />
-    <div class="row" id="sortable">
-    </div>
     {# <script src="{{ asset('js/editImages.js') }}"></script> #}
     
   </div>
-  <script>
+  {# <script>
      $('#sortable').sortable({
        animation: 300,
        touchStartThreshold: 1,
      });
-    </script>
+    </script> #}
 </div>
 <hr>
   <div class="form-row">
