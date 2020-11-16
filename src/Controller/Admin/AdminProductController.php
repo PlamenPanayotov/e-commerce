@@ -50,6 +50,7 @@ class AdminProductController extends AbstractController
         $this->productOptionService = $productOptionService;
         $this->attachmentService = $attachmentService;
     }
+
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
@@ -157,7 +158,7 @@ class AdminProductController extends AbstractController
             'productTranslationBg' => $productTranslationBg,
             'optionGroups' => $optionGroups,
             'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
-            'attachments' => $this->attachmentService->getNamesByProduct($product),
+            'attachments' => $this->attachmentService->getAllByOneProduct($product),
             'form' => $form->createView(),
         ]);
     }
@@ -170,8 +171,14 @@ class AdminProductController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
 
             $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
+
+            $productOptions = $this->productOptionService->getProductOptionsByProduct($product->getId());
             
             $entityManager = $this->getDoctrine()->getManager();
+
+            foreach ($productOptions as $productOption) {
+                $entityManager->remove($productOption);
+            }
 
             foreach ($productTranslations as $productTranslation) {
                 $entityManager->remove($productTranslation);

@@ -1,7 +1,4 @@
 
-// const sortableDiv = document.getElementById('sortable');
-let attachments = document.getElementById('admin_product_images').dataset('attachments');
-console.log(attachments);
 function preview(input) {
     console.log(input.nextElementSibling);
     if (input.nextElementSibling) {

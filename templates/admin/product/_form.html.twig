@@ -94,20 +94,36 @@
       name="admin_product[images][]"
       data-show-upload="true"
       multiple="multiple"
-      {% if attachments is defined %}
-        data-attachments="{{ attachments|json_encode }}"
-      {% endif %}
       onchange="preview(this);"
        />
-    {# <script src="{{ asset('js/editImages.js') }}"></script> #}
-    
   </div>
-  {# <script>
-     $('#sortable').sortable({
-       animation: 300,
-       touchStartThreshold: 1,
-     });
-    </script> #}
+    <div class="row">
+      {% for attachment in attachments %}
+        <div class="images col-sm">
+          <img class="img-thumbnail" src="/uploads/{{ attachment.image }}" style="height: 150px;">
+          <p>{{ attachment.id }}</p>
+        </div>
+        <div>
+         <a href="{{
+          path(
+            'attachment_delete',
+            {
+              id: attachment.id
+            }
+          )
+          }}"
+          class="btn btn-danger">
+          Delete
+        </a>
+          {# <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#attachment_delete">
+            Delete
+          </button> #}
+        </div>
+        {# {% include '/admin/modals/attachment_delete.html.twig' %} #}
+      {% endfor %}
+    </div>
+
+  
 </div>
 <hr>
   <div class="form-row">
