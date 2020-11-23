@@ -36,17 +36,21 @@
           {{ product.price }}
         </td>
       </tr>
-      {% if options %}
-        <tr>
-          <th>
-            {{ options[0].group }}
-          </th>
-          <td>
-            {% for option in options %}
-              {{ option.name }}
-            {% endfor %}
-          </td>
-        </tr>
+      {% if optionGroups %}
+        {% for group in optionGroups %}
+          <tr>
+            <th>
+              {{ group.name }}
+            </th>
+            <td>
+              {% for option in options %}
+                {% if option.group == group %}
+                  {{ option.name }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
       {% endif %}
     </tbody>
   </table>

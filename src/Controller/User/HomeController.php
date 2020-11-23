@@ -27,7 +27,6 @@ class HomeController extends AbstractController
         $products = $productRepository->findAll();
         $isVerified = $this->userService->isVerified();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'isVerified' => $isVerified,
             'user' => $user,
             'products' => $products

@@ -7,6 +7,7 @@ use App\Entity\Product;
 use App\Entity\ProductOption;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
+use App\Form\DeleteSelectedProductsType;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
 use App\Service\Admin\AdminServiceInterface;
@@ -20,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Regex;
 
 /**
  * @Route("admin/products")
@@ -57,12 +59,14 @@ class AdminProductController extends AbstractController
     public function index(ProductTranslationRepository $productTranslationRepository, Request $request): Response
     {
         $locale = $request->getLocale();
+       
         return $this->render('admin/product/all_products.html.twig', [
             'products' => $productTranslationRepository->findBy(['locale' => $locale]),
             'admin' => $this->adminService->currentAdmin(),
             'attachments' => $this->attachmentService->getAttachments()
         ]);
     }
+
 
     /**
      * @Route("/new/{options}", name="product_new", methods={"GET","POST"})
@@ -117,9 +121,11 @@ class AdminProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+        $optionGroups = $this->productOptionService->getOptionGroupsByProduct($product->getId());
         $options = $this->optionService->getAllByOneProduct($product->getId());
         return $this->render('admin/product/show.html.twig', [
             'product' => $product,
+            'optionGroups' => $optionGroups,
             'options' => $options
         ]);
     }
@@ -171,10 +177,14 @@ class AdminProductController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
 
             $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
-
             $productOptions = $this->productOptionService->getProductOptionsByProduct($product->getId());
+            $attachments = $this->attachmentService->getAllByOneProduct($product);
             
             $entityManager = $this->getDoctrine()->getManager();
+
+            foreach ($attachments as $attachment) {
+                $entityManager->remove($attachment);
+            }
 
             foreach ($productOptions as $productOption) {
                 $entityManager->remove($productOption);

@@ -11,31 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class LanguageController extends AbstractController
 {
    /**
-     * @Route("/changeLocal", name="change-local")
+     * @Route("/changeLocale{locale}", name="change-locale")
      */
     public function changeLocal(Request $request)
     {
-        $form = $this->createForm(ChangeLocaleFormType::class);
-        $form->handleRequest($request);
-        $user = $this->getUser();
-        
-        if ($form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
-			$locale = $form->getData()['locale'];
-			$user->setLocale($locale);
-			$em->persist($user);
-            $em->flush();
-
-            setcookie('_locale', $locale);
-        
-            $request->setLocale($locale);
-            $request->getSession()->set('_locale', $locale);
-            
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('home/locale.html.twig', [
-            'form' => $form->createView()
-        ]);
+        $locale = $request->get('locale');
+        setcookie('_locale', $locale);
+        $request->setLocale($locale);
+        $request->getSession()->set('_locale', $locale);
+        $url = $_SERVER['HTTP_REFERER'];
+        return $this->redirect($url);
     }
 }

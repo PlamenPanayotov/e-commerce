@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+	<link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet" />
+  <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -8,7 +10,7 @@
       <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
-          {% include '/admin/common/topbar.html.twig' %}
+        {% include '/admin/common/topbar.html.twig' %}
 
          {% block content %}{% endblock %}
 

@@ -61,12 +61,15 @@ class ProductOptionService implements ProductOptionServiceInterface
     {
         if($productId) {
             $options = $this->getProductOptionsByProduct($productId);
+            $group = '';
+            $optionGroups = [];
             foreach ($options as $option) {
-                $optionGroups = $option->getOptionGroup();
-            break;
+                $optionGroup = $option->getOptionGroup();
+                if($group !== $optionGroup) {
+                    array_push($optionGroups, $optionGroup);
+                    $group = $optionGroup;
+                }
             }
-            // dump($optionGroups);
-            // exit;
             return $optionGroups;
         }
         return null;        

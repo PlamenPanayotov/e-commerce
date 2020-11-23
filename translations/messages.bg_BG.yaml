@@ -10,6 +10,7 @@ user:
   register: Регистрация
   logout: Изход
   hello: Здравейте!
+  wellcome: Здравейте!
 
 product:
   add: Добави продукт
@@ -17,6 +18,7 @@ product:
   products: Продукти
   show: покажи
   edit: промени
+  delete: изтрий
   with_options: Продукт с опции
   without_options: Продукт без опции
   categories: Категории

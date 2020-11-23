@@ -10,6 +10,7 @@ user:
   register: Register
   logout: Logout
   hello: Hello!
+  wellcome: Wellcome!
 
 product:
   add: Add product
@@ -17,6 +18,7 @@ product:
   products: Products
   show: show
   edit: edit
+  delete: delete
   with_options: Product with options
   without_options: Product without options
   categories: Categories

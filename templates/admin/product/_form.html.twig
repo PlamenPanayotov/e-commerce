@@ -84,12 +84,37 @@
 <div class="form-row">
 <div class="form-group col-md-12">
   <label for="admin_product_prymary" class="ml-md-auto">Primary image</label>
-    <input type="file" class="file" id="admin_product_prymary" name="admin_product_primary" onchange="preview(this);">
+    <input type="file" class="form-control-file" id="admin_product_prymary" name="admin_product_primary" onchange="preview(this);">
+    <div class="row">
+    {% if attachments is defined %}
+    
+      {% for attachment in attachments %}
+        {% if attachment.isPrimary == true %}
+          <div class="images col-sm">
+            <img class="img-thumbnail" src="/uploads/{{ attachment.image }}" style="height: 150px;">
+          </div>
+          <div>
+              <a href="{{
+                path(
+                'attachment_delete',
+                {
+                id: attachment.id
+                }
+                )
+                }}"
+                class="btn btn-danger">
+                Delete
+              </a>
+            </div>
+        {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
 </div>
 <div class="form-group col-md-12">
   <label for="admin_product_images" class="ml-md-auto">Images</label>
     <input type="file"
-      class="file"
+      class="form-control-file"
       id="admin_product_images"
       name="admin_product[images][]"
       data-show-upload="true"
@@ -98,6 +123,8 @@
        />
   </div>
     <div class="row">
+    {% if attachments is defined %}
+    
       {% for attachment in attachments %}
         <div class="images col-sm">
           <img class="img-thumbnail" src="/uploads/{{ attachment.image }}" style="height: 150px;">
@@ -121,6 +148,7 @@
         </div>
         {# {% include '/admin/modals/attachment_delete.html.twig' %} #}
       {% endfor %}
+      {% endif %}
     </div>
 
   
@@ -145,15 +173,6 @@
           {{- productEn.description -}}
         </textarea>
     </div>
-      <div class="form-group col-md-8">
-        <label for="admin_product_metaKeywords_en" class="required">Meta keywords en</label>
-          <input type="text"
-            class="form-control"
-            id="admin_product_metaKeywords_en"
-            name="admin_product[metaKeywords_en]"
-            required="required"
-            value="{{ productEn.metaKeywords }}" />
-      </div>
       <div class="form-group col-md-8">
         <label for="admin_product_metaKeywords_en" class="required">Meta keywords en</label>
           <input type="text"
@@ -202,15 +221,6 @@
           {{- productBg.description -}}
         </textarea>
     </div>   
-    <div class="form-group col-md-8">
-      <label for="admin_product_description_bg" class="required">Description bg</label>
-        <textarea id="admin_product_description_bg"
-          class="form-control"
-          name="admin_product[description_bg]"
-          required="required">
-          {{- productBg.description -}}
-        </textarea>
-    </div>
     <div class="form-group col-md-8">
       <label for="admin_product_metaKeywords_bg" class="required">Meta keywords bg</label>
         <input type="text"
