@@ -16,8 +16,10 @@ use App\Service\Category\CategoryServiceInterface;
 use App\Service\Option\OptionServiceInterface;
 use App\Service\OptionGroup\OptionGroupServiceInterface;
 use App\Service\Product\ProductOptionServiceInterface;
+use App\Service\Product\ProductServiceInterface;
 use App\Service\Product\ProductTranslationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +37,7 @@ class AdminProductController extends AbstractController
     private $optionGroupService;
     private $productOptionService;
     private $attachmentService;
+    private $productService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
@@ -42,7 +45,8 @@ class AdminProductController extends AbstractController
                                 OptionServiceInterface $optionService,
                                 OptionGroupServiceInterface $optionGroupService,
                                 ProductOptionServiceInterface $productOptionService,
-                                AttachmentServiceInterface $attachmentService)
+                                AttachmentServiceInterface $attachmentService,
+                                ProductServiceInterface $productService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
@@ -51,6 +55,7 @@ class AdminProductController extends AbstractController
         $this->optionGroupService = $optionGroupService;
         $this->productOptionService = $productOptionService;
         $this->attachmentService = $attachmentService;
+        $this->productService = $productService;
     }
 
     /**
@@ -172,29 +177,13 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
+    public function delete(Request $request, Product $product): Response
     {
+        
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-
-            $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
-            $productOptions = $this->productOptionService->getProductOptionsByProduct($product->getId());
-            $attachments = $this->attachmentService->getAllByOneProduct($product);
-            
+            $directory = $this->getParameter('uploads_directory') . '/';
             $entityManager = $this->getDoctrine()->getManager();
-
-            foreach ($attachments as $attachment) {
-                $entityManager->remove($attachment);
-            }
-
-            foreach ($productOptions as $productOption) {
-                $entityManager->remove($productOption);
-            }
-
-            foreach ($productTranslations as $productTranslation) {
-                $entityManager->remove($productTranslation);
-            }
-
-            $entityManager->remove($product);
+            $this->productService->deleteProduct($product, $entityManager, $directory);            
             $entityManager->flush();
         }
 
