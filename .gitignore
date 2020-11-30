@@ -8,6 +8,9 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /public/scss/
+/public/js/demo/
+/public/js/templates/
+/public/plugins/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -22,9 +25,6 @@
 /node_modules/
 /public/build/
 /public/vendor/
-/public/js/demo/
-/public/js/templates/
-/public/plugins/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
