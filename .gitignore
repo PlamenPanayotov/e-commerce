@@ -24,6 +24,7 @@
 /public/vendor/
 /public/js/demo/
 /public/js/templates/
+/public/plugins/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
