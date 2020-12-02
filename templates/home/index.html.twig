@@ -82,14 +82,24 @@
       <!-- sect-heading -->
 
       <div class="row">
-        <div class="col-md-3">
+       {% for product in products %}
+          <div class="col-md-3">
           <div href="#" class="card card-product-grid">
-            <a href="#" class="img-wrap"><img src="images/items/1.jpg" /></a>
+            <a href="#" class="img-wrap"><img
+            {% for attachment in attachments %}
+                        {% if attachment.product == product %}
+                          {% if attachment.isPrimary == true %}
+                            src="/uploads/{{ attachment.image }}" 
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}>
+             </a>
             <figcaption class="info-wrap">
-              <a href="#" class="title">Just another product name</a>
+              <a href="#" class="title">{{ product.name }}</a>
 
               <div class="rating-wrap">
                 <ul class="rating-stars">
+               
                   <li style="width:80%" class="stars-active">
                     <i class="fa fa-star"></i><i class="fa fa-star">
 
@@ -108,107 +118,14 @@
                 <span class="label-rating text-muted">34 reviws</span>
               </div>
               <div class="price mt-1">
-                $179.00
+                {{ product.price|format_currency('BGN') }}
               </div> <!-- price-wrap.// -->
             </figcaption>
           </div>
-        </div> <!-- col.// -->
-        <div class="col-md-3">
-          <div href="#" class="card card-product-grid">
-            <a href="#" class="img-wrap"><img src="images/items/2.jpg" /></a>
-            <figcaption class="info-wrap">
-              <a href="#" class="title">Some item name here</a>
-
-              <div class="rating-wrap">
-                <ul class="rating-stars">
-                  <li style="width:80%" class="stars-active">
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                  <li>
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                </ul>
-                <span class="label-rating text-muted">34 reviws</span>
-              </div>
-              <div class="price mt-1">
-                $280.00
-              </div> <!-- price-wrap.// -->
-            </figcaption>
-          </div>
-        </div> <!-- col.// -->
-        <div class="col-md-3">
-          <div href="#" class="card card-product-grid">
-            <a href="#" class="img-wrap"><img src="images/items/3.jpg" /></a>
-            <figcaption class="info-wrap">
-              <a href="#" class="title">Great product name here</a>
-
-              <div class="rating-wrap">
-                <ul class="rating-stars">
-                  <li style="width:80%" class="stars-active">
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                  <li>
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                </ul>
-                <span class="label-rating text-muted">34 reviws</span>
-              </div>
-              <div class="price mt-1">
-                $56.00
-              </div> <!-- price-wrap.// -->
-            </figcaption>
-          </div>
-        </div> <!-- col.// -->
-        <div class="col-md-3">
-          <div href="#" class="card card-product-grid">
-            <a href="#" class="img-wrap"><img src="images/items/4.jpg" /></a>
-            <figcaption class="info-wrap">
-              <a href="#" class="title">Just another product name</a>
-
-              <div class="rating-wrap">
-                <ul class="rating-stars">
-                  <li style="width:80%" class="stars-active">
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                  <li>
-                    <i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i><i class="fa fa-star">
-
-                    </i><i class="fa fa-star"></i>
-                  </li>
-                </ul>
-                <span class="label-rating text-muted">34 reviws</span>
-              </div>
-              <div class="price mt-1">
-                $179.00
-              </div> <!-- price-wrap.// -->
-            </figcaption>
-          </div>
-        </div> <!-- col.// -->
-      </div> <!-- row.// -->
-    </div> <!-- container .// -->
-  </section>
+        </div> <!-- col.// -->        
+      {% endfor %}
+        
+        
   <!-- ========================= SECTION CONTENT END// ========================= -->
 
   <!-- ========================= SECTION CONTENT ========================= -->

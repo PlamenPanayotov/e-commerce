@@ -32,3 +32,6 @@ language:
   language: Език
   english: Английски
   bulgarian: Български
+
+store:
+  store: Магазин  

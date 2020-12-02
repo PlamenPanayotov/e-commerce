@@ -4,6 +4,8 @@ namespace App\Controller\User;
 
 use App\Form\User\ChangeLocaleFormType;
 use App\Repository\ProductRepository;
+use App\Service\Attachment\AttachmentServiceInterface;
+use App\Service\Category\CategoryServiceInterface;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     private object $userService;
+    private object $categoryService;
+    private object $attachmentService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(UserServiceInterface $userService,
+                                CategoryServiceInterface $categoryService,
+                                AttachmentServiceInterface $attachmentService)
     {
         $this->userService = $userService;
+        $this->categoryService = $categoryService;
+        $this->attachmentService = $attachmentService;
     }
     /**
      * @Route("/", name="app_home")
@@ -29,7 +37,9 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'isVerified' => $isVerified,
             'user' => $user,
-            'products' => $products
+            'products' => $products,
+            'categories' => $this->categoryService->getAll(),
+            'attachments' => $this->attachmentService->getAttachments()
         ]);
     }
 

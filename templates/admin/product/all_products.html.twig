@@ -55,7 +55,7 @@
                       <td>{{ product.name }}</td>
                       <td><img 
                       {% for attachment in attachments %}
-                        {% if attachment.product == product.product  %}
+                        {% if attachment.product == product.product %}
                           {% if attachment.isPrimary == true %}
                             src="/uploads/{{ attachment.image }}" style="object-fit: cover; width:100px;height:100px;"
                           {% endif %}
