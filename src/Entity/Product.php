@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 use App\Repository\ProductRepository;
+use App\Entity\CartItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -57,6 +58,13 @@ class Product
      * @ORM\OneToMany(targetEntity="Attachment", mappedBy="product", cascade={"persist"})
      */
     private $attachments;
+
+    /**
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="App\Entity\CartItem", inversedBy="product")
+     * @ORM\JoinColumn(name="cartItem_id", referencedColumnName="id")
+     */
+    private $cartItem;
     
 
     public function __construct()
@@ -215,6 +223,26 @@ class Product
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get many features have one product. This is the owning side.
+     */ 
+    public function getCartItem()
+    {
+        return $this->cartItem;
+    }
+
+    /**
+     * Set many features have one product. This is the owning side.
+     *
+     * @return  self
+     */ 
+    public function setCartItem($cartItem)
+    {
+        $this->cartItem = $cartItem;
 
         return $this;
     }

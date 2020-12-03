@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use App\Entity\Cart;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -53,6 +54,11 @@ class User implements UserInterface, EquatableInterface
      * @ORM\Column(type="boolean")
      */
     private bool $isVerified = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cart", mappedBy="user")
+     */
+    private object $cart;
 
     public function getId(): ?int
     {
