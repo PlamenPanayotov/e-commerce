@@ -62,7 +62,7 @@
 				<div class="text">
 					<span class="text-muted">{% trans %}user.wellcome{% endtrans %}</span>
 					<div> 
-						{% if user %}
+						{% if app.user %}
 							<a href="{{ path('user_profile')}}">{{ user.username }}</a>
 						{% else %}
 						<a href="{{ path('app_login')}}">Sign in</a> |  

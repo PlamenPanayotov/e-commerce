@@ -63,9 +63,9 @@
     <select class="form-control"
       name="admin_product[option]"
       id="admin_product_option_id">
-      {% if productOptionGroups %}
-        <option value="{{ productOptionGroups.id }}">
-          {{ productOptionGroups.name }}
+      {% if product.productOptions %}
+        <option value="{{ product.productOptions.optionGroup.id }}">
+          {{ product.productOptions.optionGroup.name }}
         </option>
       {% else %}
         <option value="">
