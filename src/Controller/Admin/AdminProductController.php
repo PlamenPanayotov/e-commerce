@@ -140,6 +140,7 @@ class AdminProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
+        
         $optionGroups = $this->optionGroupService->getAll();
         $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
         $productTranslationEn = $productTranslations[0];

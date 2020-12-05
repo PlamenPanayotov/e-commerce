@@ -58,14 +58,17 @@
       {% endfor %}
     </select>
   </div>
-  <div class="form-group col-md-4">
+
+  {% if productOptionGroups %}
+  {% for productOptionGroup in productOptionGroups %}
+    <div class="form-group col-md-4">
     <label for="country">{% trans %}product.options{% endtrans %}</label>
     <select class="form-control"
       name="admin_product[option]"
       id="admin_product_option_id">
-      {% if product.productOptions %}
-        <option value="{{ product.productOptions.optionGroup.id }}">
-          {{ product.productOptions.optionGroup.name }}
+      {% if productOptionGroup %}
+        <option value="{{ productOptionGroup.id }}">
+          {{ productOptionGroup.name }}
         </option>
       {% else %}
         <option value="">
@@ -81,6 +84,27 @@
     </select>
   </div>
 </div>
+  {% endfor %}
+  
+  {% else %}
+  
+    <div class="form-group col-md-4">
+    <label for="country">{% trans %}product.options{% endtrans %}</label>
+    <select class="form-control"
+      name="admin_product[option]"
+      id="admin_product_option_id">
+        <option value="">
+          Избери...
+        </option>
+      {% for option in optionGroups %}
+        <option value="{{ option.id }}" name="product[option]">
+          {{ option.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+  {% endif %}
 <div class="form-row">
 <div class="form-group col-md-12">
   <label for="admin_product_prymary" class="ml-md-auto">Primary image</label>

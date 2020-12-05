@@ -6,6 +6,7 @@ use App\Entity\OptionGroup;
 use App\Entity\Product;
 use App\Entity\ProductOption;
 use App\Repository\ProductOptionRepository;
+use App\Repository\ProductRepository;
 use App\Service\Option\OptionServiceInterface;
 use Symfony\Component\Form\Form;
 
@@ -16,11 +17,15 @@ class ProductOptionService implements ProductOptionServiceInterface
     
     private $productOptionRepository;
 
+    private $productRepository;
+
     public function __construct(OptionServiceInterface $optionService,
-                                ProductOptionRepository $productOptionRepository)
+                                ProductOptionRepository $productOptionRepository,
+                                ProductRepository $productRepository)
     {
         $this->optionService = $optionService;
         $this->productOptionRepository = $productOptionRepository;
+        $this->productRepository = $productRepository;
     }
    
     public function setProductOptions(ProductOption $productOption, 
