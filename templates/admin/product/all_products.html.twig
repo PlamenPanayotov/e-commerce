@@ -63,7 +63,7 @@
                       {% endfor %}>
                       </td>
                       <td>{{ product.description }}</td>
-                      <td>{{ product.product.price }}</td>
+                      <td>{{ product.product.price|format_currency('BGN')}}</td>
                       <td>{{ product.product.category.name }}</td>
                        <td>
                     <a class="btn-sm btn-info" href="{{ path('product_show', {'id': product.product.id}) }}">{% trans %}product.show{% endtrans %}</a>
