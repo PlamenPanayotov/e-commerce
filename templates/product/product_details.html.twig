@@ -47,59 +47,24 @@
             <li>Best performance of battery</li>
           </ul>
 
-          <div class="item-option-select">
-            <h6>
-              Model
-            </h6>
-            <div class="btn-group btn-group-sm btn-group-toggle"
-              data-toggle="buttons">
-              <label class="btn btn-light active">
-                <input type="radio" name="radio_size" checked />Xs
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_size" />Xs Max
-              </label>
-            </div>
-          </div>
-
-        {% for option in product.productOptions %}
+        {% for group in productOptionGroups %}
             <div class="item-option-select">
             <h6>
-              {{ option.option.name }}
+              {{ group.name }}
             </h6>
             <div class="btn-group btn-group-sm btn-group-toggle"
               data-toggle="buttons">
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color" />Silver
+              {% for option in product.productOptions %}
+                <label class="btn btn-light">
+                <input type="radio" name="radio_color" />{{ option.option.name }}
               </label>
-              <label class="btn btn-light active">
-                <input type="radio" name="radio_color" checked />Gray
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color" />Gold
-              </label>
+              {% endfor %}
             </div>
           </div>
         {% endfor %}
           
 
-          <div class="item-option-select">
-            <h6>
-              Capacity
-            </h6>
-            <div class="btn-group btn-group-sm btn-group-toggle"
-              data-toggle="buttons">
-              <label class="btn btn-light active">
-                <input type="radio" name="options" checked />64 GB
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="options" />256 GB
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="options" />512 GB
-              </label>
-            </div>
-          </div>
+         
 
           <div class="row mt-3 align-items-center">
             <div class="col">
@@ -122,4 +87,5 @@
       </main> <!-- col.// -->
     </div> <!-- row.// -->
   </div> <!-- card.// -->
+  {% include './common/footer.html.twig' %}
 {% endblock %}

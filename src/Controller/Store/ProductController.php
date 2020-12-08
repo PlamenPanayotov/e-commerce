@@ -4,6 +4,7 @@ namespace App\Controller\Store;
 
 use App\Entity\Product;
 use App\Service\Category\CategoryServiceInterface;
+use App\Service\Product\ProductOptionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +17,13 @@ class ProductController extends AbstractController
 {
 
     private $categoryService;
+    private $productOptionService;
 
-    public function __construct(CategoryServiceInterface $categoryService)
+    public function __construct(CategoryServiceInterface $categoryService,
+                                ProductOptionServiceInterface $productOptionService)
     {
         $this->categoryService = $categoryService;
+        $this->productOptionService = $productOptionService;
     }
     /**
      * @Route("/details/{id}", name="product_details")
@@ -28,7 +32,8 @@ class ProductController extends AbstractController
     {
         return $this->render('product/product_details.html.twig', [
             'product' => $product,
-            'categories' => $this->categoryService->getAll()
+            'categories' => $this->categoryService->getAll(),
+            'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
         ]);
     }
 }

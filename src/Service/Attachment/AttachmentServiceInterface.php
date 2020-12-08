@@ -5,7 +5,9 @@ use App\Entity\Product;
 
 interface AttachmentServiceInterface
 {
-    public function addAttachments($files, $directory, Product $product, $entityManager, $form);
+    public function addAttachments($directory, Product $product, $entityManager, $form);
+
+    public function addToDirectory($file, $directory, $product, $entityManager);
 
     public function getAttachments();
 

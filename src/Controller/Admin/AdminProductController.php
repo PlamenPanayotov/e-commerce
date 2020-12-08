@@ -97,10 +97,8 @@ class AdminProductController extends AbstractController
             $entityManager->persist($productSecondTranslation);
         
             $directory = $this->getParameter('uploads_directory');
-            $files = $request->files->get('admin_product')['images'];
-            $files[] = $request->files->get('admin_product_primary');
             
-            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager, $request);
+            $this->attachmentService->addAttachments($directory, $product, $entityManager, $request);
 
             if($request->get('options') == true) {
                 $this->productOptionService->addOptions($product, $form, $entityManager);
@@ -153,10 +151,8 @@ class AdminProductController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             
             $directory = $this->getParameter('uploads_directory');
-            
-            $files = $request->files->get('admin_product')['images'];
     
-            $this->attachmentService->addAttachments($files, $directory, $product, $entityManager, $request);
+            $this->attachmentService->addAttachments($directory, $product, $entityManager, $request);
 
             $this->productOptionService->addOptions($product, $form, $entityManager);
             $entityManager->flush();

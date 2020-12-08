@@ -14,21 +14,31 @@ class AttachmentService implements AttachmentServiceInterface
         $this->attachmentRepository = $attachmentRepository;
     }
 
-    public function addAttachments($files, $directory, Product $product, $entityManager, $request)
+    public function addAttachments($directory, Product $product, $entityManager, $request)
     {
+        $files = $request->files->get('admin_product')['images'];
+        $primaryImage = $request->files->get('admin_product_primary');
+        $filename = md5(uniqid()) . '.' . $primaryImage->guessExtension();
+        $primaryImage->move($directory, $filename);
+        $attachment = new Attachment();
+        $attachment->setProduct($product);
+        $attachment->setImage($filename);
+        $entityManager->persist($attachment);
+        $attachment->setIsPrimary(true);
         foreach ($files as $file) {
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($directory, $filename);
-            $attachment = new Attachment();
-            $attachment->setProduct($product);
-            $attachment->setImage($filename);
-            if($file == $files[count($files) - 1]) {
-                $attachment->setIsPrimary(true);
-            }
-            
-            $entityManager->persist($attachment);
+            $this->addToDirectory($file, $directory, $product, $entityManager);
         }
         
+    }
+
+    public function addToDirectory($file, $directory, $product, $entityManager)
+    {
+        $filename = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move($directory, $filename);
+        $attachment = new Attachment();
+        $attachment->setProduct($product);
+        $attachment->setImage($filename);
+        $entityManager->persist($attachment);
     }
 
     public function getAttachments()
