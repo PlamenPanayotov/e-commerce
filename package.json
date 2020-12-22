@@ -9,6 +9,8 @@
         "vue-cli-plugin-vuetify": "~2.0.7",
         "vue-loader": "^15.0.11",
         "vue-template-compiler": "^2.6.12",
+        "webpack-manifest-plugin": "^3.0.0",
+        "webpack-nano": "^1.1.1",
         "webpack-notifier": "^1.8.0"
     },
     "license": "UNLICENSED",

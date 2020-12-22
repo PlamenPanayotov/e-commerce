@@ -3,6 +3,23 @@ admin:
   components: Components
   settings: Settings
   interface: Interface
+  product:
+    add: Add product
+    all: All products
+    products: Products
+    show: show
+    edit: edit
+    delete: delete
+    with_options: Product with options
+    without_options: Product without options
+    categories: Categories
+    options: Options
+    option_groups: Option groups
+    price: Price
+    new: New product
+    editProduct: Edit product
+    primary_image: Primary image
+    images: Images
 
 user:
   login: Login
@@ -12,21 +29,7 @@ user:
   hello: Hello!
   wellcome: Wellcome!
 
-product:
-  add: Add product
-  all: All products
-  products: Products
-  show: show
-  edit: edit
-  delete: delete
-  with_options: Product with options
-  without_options: Product without options
-  categories: Categories
-  options: Options
-  option_groups: Option groups
-  price: Price
-  new: New product
-  editProduct: Edit product
+
 
 language:
   language: Language
@@ -35,3 +38,7 @@ language:
 
 store:
   store: Store
+
+systems:
+  choose: Choose
+  delete: Delete

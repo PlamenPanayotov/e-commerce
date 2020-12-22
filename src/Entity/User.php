@@ -20,45 +20,45 @@ class User implements UserInterface, EquatableInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private string $email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private string $username;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, nullable=true)
      */
-    private string $locale;
+    private $locale;
 
     /**
      * @ORM\Column(type="json")
      */
-    private array $roles = [];
+    private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private string $password;
+    private $password;
 
-    private string $oldPassword;
+    private $oldPassword;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $isVerified = false;
+    private $isVerified = false;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Cart", mappedBy="user")
      */
-    private object $cart;
+    private $cart;
 
     public function getId(): ?int
     {

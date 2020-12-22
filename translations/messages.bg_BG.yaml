@@ -3,6 +3,25 @@ admin:
   components: Компоненти
   settings: Настройки
   interface: Интерфейс
+  product:
+    add: Добави продукт
+    all: Всички продкти
+    products: Продукти
+    show: покажи
+    edit: промени
+    delete: изтрий
+    with_options: Продукт с опции
+    without_options: Продукт без опции
+    categories: Категории
+    options: Опции
+    option_groups: Групи опции
+    price: Цена
+    new: Нов продукт
+    editProduct: Промяна на продукт
+    name:
+    primary_image: Главна снимка
+    images: Снимки
+
 
 user:
   login: Вход
@@ -11,27 +30,17 @@ user:
   logout: Изход
   hello: Здравейте!
   wellcome: Здравейте!
-
-product:
-  add: Добави продукт
-  all: Всички продкти
-  products: Продукти
-  show: покажи
-  edit: промени
-  delete: изтрий
-  with_options: Продукт с опции
-  without_options: Продукт без опции
-  categories: Категории
-  options: Опции
-  option_groups: Групи опции
-  price: Цена
-  new: Нов продукт
-  editProduct: Промяна на продукт
-
+  
 language:
   language: Език
   english: Английски
   bulgarian: Български
 
 store:
-  store: Магазин  
+  store: Магазин   
+  
+systems:
+  choose: Избери  
+  delete: Изтрий
+
+

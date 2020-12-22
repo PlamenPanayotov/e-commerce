@@ -18,13 +18,16 @@ class AttachmentService implements AttachmentServiceInterface
     {
         $files = $request->files->get('admin_product')['images'];
         $primaryImage = $request->files->get('admin_product_primary');
-        $filename = md5(uniqid()) . '.' . $primaryImage->guessExtension();
-        $primaryImage->move($directory, $filename);
-        $attachment = new Attachment();
-        $attachment->setProduct($product);
-        $attachment->setImage($filename);
-        $entityManager->persist($attachment);
-        $attachment->setIsPrimary(true);
+        if ($primaryImage) {
+            $filename = md5(uniqid()) . '.' . $primaryImage->guessExtension();
+            $primaryImage->move($directory, $filename);
+            $attachment = new Attachment();
+            $attachment->setProduct($product);
+            $attachment->setImage($filename);
+            $entityManager->persist($attachment);
+            $attachment->setIsPrimary(true);
+        }
+       
         foreach ($files as $file) {
             $this->addToDirectory($file, $directory, $product, $entityManager);
         }

@@ -26,7 +26,7 @@
   </div>
   <div class="form-group col-md-2">
     <label for="admin_product_price" class="required">
-      {% trans %}product.price{% endtrans %}
+      {% trans %}admin.product.price{% endtrans %}
     </label><input type="text"
       id="admin_product_price"
       class="form-control"
@@ -36,7 +36,7 @@
   </div>
   <div class="form-group col-md-4">
     <label for="admin_product_category_id">
-      {% trans %}product.categories{% endtrans %}
+      {% trans %}admin.product.categories{% endtrans %}
     </label>
     <select class="form-control"
       name="admin_product[category]"
@@ -48,7 +48,7 @@
         </option>
       {% else %}
         <option value="">
-          Избери...
+          {% trans %}systems.choose{% endtrans %}...
         </option>
       {% endif %}
       {% for category in categories %}
@@ -64,7 +64,7 @@
     {% if productOptionGroups %}
   {% for productOptionGroup in productOptionGroups %}
     <div class="form-group col-md-4">
-    <label for="country">{% trans %}product.options{% endtrans %}</label>
+    <label for="country">{% trans %}admin.product.options{% endtrans %}</label>
     <select class="form-control"
       name="admin_product[option]"
       id="admin_product_option_id">
@@ -74,7 +74,7 @@
         </option>
       {% else %}
         <option value="">
-          Избери...
+          {% trans %}systems.choose{% endtrans %}...
         </option>
       {% endif %}
 
@@ -91,12 +91,12 @@
   {% else %}
   
     <div class="form-group col-md-4">
-    <label for="country">{% trans %}product.options{% endtrans %}</label>
+    <label for="country">{% trans %}admin.product.options{% endtrans %}</label>
     <select class="form-control"
       name="admin_product[option]"
       id="admin_product_option_id">
         <option value="">
-          Избери...
+          {% trans %}systems.choose{% endtrans %}...
         </option>
       {% for option in optionGroups %}
         <option value="{{ option.id }}" name="product[option]">
@@ -113,7 +113,7 @@
   
 <div class="form-row">
 <div class="form-group col-md-12">
-  <label for="admin_product_prymary" class="ml-md-auto">Primary image</label>
+  <label for="admin_product_prymary" class="ml-md-auto">{% trans %}admin.product.primary_image{% endtrans %}</label>
     <input type="file" class="form-control-file" id="admin_product_prymary" name="admin_product_primary" onchange="preview(this);">
     <div class="row">
     {% if attachments is defined %}
@@ -133,7 +133,7 @@
                 )
                 }}"
                 class="btn btn-danger">
-                Delete
+                {% trans %}systems.delete{% endtrans %}
               </a>
             </div>
         {% endif %}
@@ -142,7 +142,7 @@
     </div>
 </div>
 <div class="form-group col-md-12">
-  <label for="admin_product_images" class="ml-md-auto">Images</label>
+  <label for="admin_product_images" class="ml-md-auto">{% trans %}admin.product.images{% endtrans %}</label>
     <input type="file"
       class="form-control-file"
       id="admin_product_images"
@@ -170,7 +170,7 @@
           )
           }}"
           class="btn btn-danger">
-          Delete
+          {% trans %}systems.delete{% endtrans %}
         </a>
           {# <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#attachment_delete">
             Delete

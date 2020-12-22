@@ -43,7 +43,7 @@ class ProductOptionService implements ProductOptionServiceInterface
     public function addOptions($product, $form, $em)
     {
         $optionGroup = $form->get('option')->getData();
-            if ($optionGroup != null) {
+            if ($optionGroup != null && !$this->getProductOptionsByProduct($product->getId())) {
                 $options = $this->optionService->getAllByOneGroup($optionGroup->getId());
 
                 foreach ($options as $option) {

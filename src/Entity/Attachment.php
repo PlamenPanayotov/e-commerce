@@ -25,7 +25,7 @@ class Attachment
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $isPrimary = false;
+    private $isPrimary = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="attachments")
