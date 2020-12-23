@@ -60,9 +60,9 @@
 			<div class="widget-header icontext">
 				<a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
 				<div class="text">
+				{% if app.user %}
 					<span class="text-muted">{% trans %}user.wellcome{% endtrans %}</span>
 					<div> 
-						{% if app.user %}
 							<a href="{{ path('user_profile')}}">{{ user.username }}</a>
 						{% else %}
 						<a href="{{ path('app_login')}}">{% trans %}user.login{% endtrans %}</a> |  
@@ -109,3 +109,4 @@
 </nav>
 
 </header> <!-- section-header.// -->
+

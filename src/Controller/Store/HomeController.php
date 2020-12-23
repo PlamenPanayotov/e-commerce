@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Store;
 
 use App\Form\User\ChangeLocaleFormType;
 use App\Repository\ProductRepository;
@@ -34,7 +34,7 @@ class HomeController extends AbstractController
         $user = $this->userService->currentUser();
         $products = $productRepository->findAll();
         $isVerified = $this->userService->isVerified();
-        return $this->render('home/index.html.twig', [
+        return $this->render('store/home/index.html.twig', [
             'isVerified' => $isVerified,
             'user' => $user,
             'products' => $products,

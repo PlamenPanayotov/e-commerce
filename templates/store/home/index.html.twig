@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-  {% include '/common/header.html.twig' %}
+  {% include 'store/common/header.html.twig' %}
 
   <!-- ========================= SECTION INTRO ========================= -->
   <section class="section-intro padding-y-sm">
@@ -118,7 +118,7 @@
                 <span class="label-rating text-muted">34 reviws</span>
               </div>
               <div class="price mt-1">
-                {{ product.price|format_currency('BGN') }}
+                {{ product.price|format_currency('BGN', locale='en') }}
               </div> <!-- price-wrap.// -->
             </figcaption>
           </div>
@@ -409,6 +409,6 @@
   <!-- ========================= SECTION END// ======================= -->
 
   <!-- ========================= FOOTER ========================= -->
-  {% include '/common/footer.html.twig' %}
+  {% include 'store/common/footer.html.twig' %}
   <!-- ========================= FOOTER END // ========================= -->
 {% endblock %}

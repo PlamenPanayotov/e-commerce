@@ -14,7 +14,8 @@
   <div class="example-wrapper">
     {% if isVerified == false %}
       <h2>
-        Please check your email and click the link to confirm your registration.
+        Please check your email and click the link to confirm your registration or request 
+        <a href="{{ path('app_verify_new_email')}}"> new email</a>
       </h2>
     {% endif %}
     <h1>

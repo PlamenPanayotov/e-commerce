@@ -30,7 +30,7 @@ class ProductController extends AbstractController
      */
     public function productDetails(Product $product): Response
     {
-        return $this->render('product/product_details.html.twig', [
+        return $this->render('store/product/product_details.html.twig', [
             'product' => $product,
             'categories' => $this->categoryService->getAll(),
             'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),

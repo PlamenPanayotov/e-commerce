@@ -20,7 +20,7 @@ class CartController extends AbstractController
      */
     public function index(CartRepository $cartRepository): Response
     {
-        return $this->render('cart/index.html.twig', [
+        return $this->render('store/cart/index.html.twig', [
             'carts' => $cartRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_index');
         }
 
-        return $this->render('cart/new.html.twig', [
+        return $this->render('store/cart/new.html.twig', [
             'cart' => $cart,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class CartController extends AbstractController
      */
     public function show(Cart $cart): Response
     {
-        return $this->render('cart/show.html.twig', [
+        return $this->render('store/cart/show.html.twig', [
             'cart' => $cart,
         ]);
     }
@@ -72,7 +72,7 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_index');
         }
 
-        return $this->render('cart/edit.html.twig', [
+        return $this->render('store/cart/edit.html.twig', [
             'cart' => $cart,
             'form' => $form->createView(),
         ]);

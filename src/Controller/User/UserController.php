@@ -34,7 +34,7 @@ class UserController extends AbstractController
     {
         $user = $this->userService->currentUser();
         $isVerified = $this->userService->isVerified();
-        return $this->render('user/profile.html.twig', [
+        return $this->render('store/user/profile.html.twig', [
             'user' => $user,
             'isVerified' => $isVerified
         ]);
@@ -67,7 +67,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_profile');
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('store/user/edit.html.twig', [
             'editUserForm' => $form->createView(),
         ]);
         

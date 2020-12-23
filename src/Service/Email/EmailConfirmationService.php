@@ -20,7 +20,7 @@ class EmailConfirmationService implements EmailConfirmationServiceInterface
         ->from(new Address('p.panayotov@mail.bg', 'Mail Bot'))
         ->to($user->getEmail())
         ->subject('Please Confirm your Email')
-        ->htmlTemplate('registration/confirmation_email.html.twig');
+        ->htmlTemplate('store/user/confirmation_email.html.twig');
 
         return $content;
     }
@@ -31,7 +31,7 @@ class EmailConfirmationService implements EmailConfirmationServiceInterface
         ->from(new Address('p.panayotov@mail.bg', 'Mail bot'))
         ->to($user->getEmail())
         ->subject('Your password reset request')
-        ->htmlTemplate('reset_password/email.html.twig')
+        ->htmlTemplate('store/user/reset_password/email.html.twig')
         ->context([
             'resetToken' => $resetToken,
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),

@@ -5,6 +5,7 @@ namespace App\Controller\User;
 use App\Form\User\EditPasswordType;
 use App\Service\User\UserServiceInterface;
 use App\Subscribers\UserLocaleSubscriber;
+use App\Service\Category\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +17,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SecurityController extends AbstractController
 {
     private $userService;
+    private $categoryService;
     
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(UserServiceInterface $userService,
+                                CategoryServiceInterface $categoryService)
     {
         $this->userService = $userService;
+        $this->categoryService = $categoryService;
     }
     /**
      * @Route("/login", name="app_login")
@@ -36,7 +40,12 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/user_login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('store/user/user_login.html.twig', 
+                ['last_username' => $lastUsername,
+                 'error' => $error,
+                 'categories' => $this->categoryService->getAll()
+                 ]
+                );
     }
 
     /**
@@ -79,7 +88,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('user_edit_password');
             }
         }
-        return $this->render('user/edit_password.html.twig', [
+        return $this->render('store/user/edit_password.html.twig', [
             'editPasswordForm' => $form->createView(),
             'old' => $old_pwd
         ]);

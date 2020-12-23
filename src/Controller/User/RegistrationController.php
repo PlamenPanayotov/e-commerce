@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\User\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
+use App\Service\User\UserServiceInterface;
 use App\Service\Email\EmailConfirmationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +20,15 @@ class RegistrationController extends AbstractController
 {
     private $emailVerifier;
     private $emailConfirmationService;
+    private $userService;
 
-    public function __construct(EmailVerifier $emailVerifier, EmailConfirmationServiceInterface $emailConfirmationService)
+    public function __construct(EmailVerifier $emailVerifier, 
+                                EmailConfirmationServiceInterface $emailConfirmationService,
+                                UserServiceInterface $userService)
     {
         $this->emailVerifier = $emailVerifier;
         $this->emailConfirmationService = $emailConfirmationService;
+        $this->userService = $userService;
     }
 
     /**
@@ -62,7 +67,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/user_register.html.twig', [
+        return $this->render('store/user/user_register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -85,6 +90,20 @@ class RegistrationController extends AbstractController
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
+
+        return $this->redirectToRoute('user_profile');
+    }
+
+    /**
+     * @Route("/verify/new_email", name="app_verify_new_email")
+     */
+    public function emailVerifier()
+    {
+        $user = $this->userService->currentUser();
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                $this->emailConfirmationService->emailContent($user));
+
+        $this->addFlash('success', 'Email was sent');
 
         return $this->redirectToRoute('user_profile');
     }
