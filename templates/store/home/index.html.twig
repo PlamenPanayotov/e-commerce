@@ -86,13 +86,11 @@
           <div class="col-md-3">
           <div href="{{ path('product_details', {'id': product.id}) }}" class="card card-product-grid">
             <a href="{{ path('product_details', {'id': product.id}) }}" class="img-wrap"><img
-            {% for attachment in attachments %}
-                        {% if attachment.product == product %}
-                          {% if attachment.isPrimary == true %}
-                            src="/uploads/{{ attachment.image }}" 
-                          {% endif %}
-                        {% endif %}
-                      {% endfor %}>
+            {% for attachment in product.attachments %}
+              {% if attachment.isPrimary == true %}
+                  src="/uploads/{{ attachment.image }}" 
+              {% endif %}
+            {% endfor %}>
              </a>
             <figcaption class="info-wrap">
               <a href="{{ path('product_details', {'id': product.id}) }}" class="title">{{ product.name }}</a>
@@ -118,7 +116,7 @@
                 <span class="label-rating text-muted">34 reviws</span>
               </div>
               <div class="price mt-1">
-                {{ product.price|format_currency('BGN', locale='en') }}
+                {{ product.price|format_currency('BGN')}}
               </div> <!-- price-wrap.// -->
             </figcaption>
           </div>

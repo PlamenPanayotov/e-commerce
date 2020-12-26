@@ -38,6 +38,7 @@ class AdminProductController extends AbstractController
     private $productOptionService;
     private $attachmentService;
     private $productService;
+    private $productRepository;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
@@ -46,7 +47,8 @@ class AdminProductController extends AbstractController
                                 OptionGroupServiceInterface $optionGroupService,
                                 ProductOptionServiceInterface $productOptionService,
                                 AttachmentServiceInterface $attachmentService,
-                                ProductServiceInterface $productService)
+                                ProductServiceInterface $productService,
+                                ProductRepository $productRepository)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
@@ -56,6 +58,7 @@ class AdminProductController extends AbstractController
         $this->productOptionService = $productOptionService;
         $this->attachmentService = $attachmentService;
         $this->productService = $productService;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -66,9 +69,8 @@ class AdminProductController extends AbstractController
         $locale = $request->getLocale();
        
         return $this->render('admin/product/all_products.html.twig', [
-            'products' => $productTranslationRepository->findBy(['locale' => $locale]),
-            'admin' => $this->adminService->currentAdmin(),
-            'attachments' => $this->attachmentService->getAttachments()
+            'products' => $this->productRepository->findAll(),
+            'admin' => $this->adminService->currentAdmin()
         ]);
     }
 
