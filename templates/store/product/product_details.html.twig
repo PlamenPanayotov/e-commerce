@@ -5,22 +5,21 @@
     <div class="row no-gutters">
       <aside class="col-sm-6 border-right">
         <article class="gallery-wrap">
+        {% for attachment in product.attachments %}
+          {% if attachment.isPrimary == true %}
           <div class="img-big-wrap">
-            <a href="#"><img src="../images/items/9.jpg" /></a>
-          </div> <!-- img-big-wrap.// -->
-          <div class="thumbs-wrap">
-            <a href="#" class="item-thumb">
-              <img src="../images/items/9.jpg" />
-            </a>
-            <a href="#" class="item-thumb">
-              <img src="../images/items/10.jpg" />
-            </a>
-            <a href="#" class="item-thumb">
-              <img src="../images/items/7.jpg" />
-            </a>
-            <a href="#" class="item-thumb">
-              <img src="../images/items/8.jpg" />
-            </a>
+            <a href="/uploads/{{ attachment.image }}"><img src="/uploads/{{ attachment.image }}" ></a>
+             </div> <!-- img-big-wrap.// -->
+          {% endif %}
+          {% endfor %}
+            <div class="thumbs-wrap">
+          {% for attachment in product.attachments %}
+            {% if attachment.isPrimary == false %}
+              <a href="/uploads/{{ attachment.image }}" class="item-thumb">
+              <img src="/uploads/{{ attachment.image }}" />
+              </a>
+              {% endif %}
+          {% endfor %}  
           </div> <!-- thumbs-wrap.// -->
         </article> <!-- gallery-wrap .end// -->
       </aside>
@@ -62,13 +61,10 @@
             </div>
           </div>
         {% endfor %}
-          
-
-         
-
+        
           <div class="row mt-3 align-items-center">
             <div class="col">
-              <span class="price h4">{{ product.price|format_currency('BGN')}}</span>
+              <span class="price h4">{{ product.price|price(app.request.locale, 2, ',')}}</span>
             </div> <!-- col.// -->
             <div class="col text-right">
               <a href="#" class="btn btn-primary">

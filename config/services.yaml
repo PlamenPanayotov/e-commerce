@@ -35,3 +35,4 @@ services:
     class: App\Subscribers\UserLocaleSubscriber
     tags:
       - { name: kernel.event_user_subscriber }
+    
