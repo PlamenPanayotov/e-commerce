@@ -4,8 +4,8 @@ namespace App\Controller\Store;
 
 use App\Form\User\ChangeLocaleFormType;
 use App\Repository\ProductRepository;
+use App\Repository\NavigationRepository;
 use App\Service\Attachment\AttachmentServiceInterface;
-use App\Service\Category\CategoryServiceInterface;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,16 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     private object $userService;
-    private object $categoryService;
     private object $attachmentService;
+    private object $navigationRepository;
 
     public function __construct(UserServiceInterface $userService,
-                                CategoryServiceInterface $categoryService,
-                                AttachmentServiceInterface $attachmentService)
+                                AttachmentServiceInterface $attachmentService,
+                                NavigationRepository $navigationRepository)
     {
         $this->userService = $userService;
-        $this->categoryService = $categoryService;
         $this->attachmentService = $attachmentService;
+        $this->navigationRepository = $navigationRepository;
     }
     /**
      * @Route("/", name="app_home")
@@ -38,7 +38,7 @@ class HomeController extends AbstractController
             'isVerified' => $isVerified,
             'user' => $user,
             'products' => $products,
-            'categories' => $this->categoryService->getAll(),
+            'categories' => $this->navigationRepository->findAll(),
             'attachments' => $this->attachmentService->getAttachments()
         ]);
     }
