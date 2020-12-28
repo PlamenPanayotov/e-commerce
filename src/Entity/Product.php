@@ -65,7 +65,12 @@ class Product
      * @ORM\JoinColumn(name="cartItem_id", referencedColumnName="id")
      */
     private $cartItem;
-    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products")
+     * @ORM\JoinTable(name="products_attributes")
+     */
+    private $attributes;    
 
     public function __construct()
     {
@@ -74,6 +79,7 @@ class Product
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
         $this->attachments = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
         
     }
 
@@ -245,5 +251,19 @@ class Product
         $this->cartItem = $cartItem;
 
         return $this;
+    }
+
+    public function addAttribute(Attribute $attribute)
+    {
+        $attribute->addProduct($this);
+        $this->attributes[] = $attribute;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
     }
 }

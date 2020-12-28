@@ -7,11 +7,11 @@ use App\Entity\Product;
 use App\Entity\ProductOption;
 use App\Entity\ProductTranslation;
 use App\Form\Admin\AdminProductType;
-use App\Form\DeleteSelectedProductsType;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTranslationRepository;
 use App\Service\Admin\AdminServiceInterface;
 use App\Service\Attachment\AttachmentServiceInterface;
+use App\Service\Attribute\AttributeServiceInterface;
 use App\Service\Category\CategoryServiceInterface;
 use App\Service\Option\OptionServiceInterface;
 use App\Service\OptionGroup\OptionGroupServiceInterface;
@@ -39,6 +39,7 @@ class AdminProductController extends AbstractController
     private $attachmentService;
     private $productService;
     private $productRepository;
+    private $attributeService;
 
     public function __construct(ProductTranslationServiceInterface $productTranslationService,
                                 CategoryServiceInterface $categoryService,
@@ -48,7 +49,8 @@ class AdminProductController extends AbstractController
                                 ProductOptionServiceInterface $productOptionService,
                                 AttachmentServiceInterface $attachmentService,
                                 ProductServiceInterface $productService,
-                                ProductRepository $productRepository)
+                                ProductRepository $productRepository,
+                                AttributeServiceInterface $attributeService)
     {
         $this->productTranslationService = $productTranslationService;
         $this->categoryService = $categoryService;
@@ -59,15 +61,14 @@ class AdminProductController extends AbstractController
         $this->attachmentService = $attachmentService;
         $this->productService = $productService;
         $this->productRepository = $productRepository;
+        $this->attributeService = $attributeService;
     }
 
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
     public function index(ProductTranslationRepository $productTranslationRepository, Request $request): Response
-    {
-        $locale = $request->getLocale();
-       
+    {       
         return $this->render('admin/product/all_products.html.twig', [
             'products' => $this->productRepository->findAll(),
             'admin' => $this->adminService->currentAdmin()
@@ -78,7 +79,7 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/new/{options}", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, AttributeRepository $attributeRepository): Response
     {
         $categories = $this->categoryService->getAll();
         $optionGroups = $this->optionGroupService->getAll();
@@ -93,6 +94,7 @@ class AdminProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
  
             $this->productTranslationService->setTranslation($productFirstTranslation, $productSecondTranslation, $form, $product);
+            $product->addAttribute($form->get('attribute')->getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->persist($productFirstTranslation);
@@ -117,6 +119,7 @@ class AdminProductController extends AbstractController
             'productTranslationEn' => $productFirstTranslation,
             'productTranslationBg' => $productSecondTranslation,
             'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
+            'attributes' => $this->attributeService->getAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -140,7 +143,7 @@ class AdminProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, ProductTranslationRepository $productTranslationRepository): Response
     {
-        
+    
         $optionGroups = $this->optionGroupService->getAll();
         $productTranslations = $productTranslationRepository->findBy(['product' => $product->getId()]);
         $productTranslationEn = $productTranslations[0];
@@ -169,6 +172,7 @@ class AdminProductController extends AbstractController
             'optionGroups' => $optionGroups,
             'productOptionGroups' => $this->productOptionService->getOptionGroupsByProduct($product->getId()),
             'attachments' => $this->attachmentService->getAllByOneProduct($product),
+            'attributes' => $this->attributeService->getAll(),
             'form' => $form->createView(),
         ]);
     }

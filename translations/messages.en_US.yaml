@@ -21,6 +21,7 @@ admin:
     editProduct: Edit product
     primary_image: Primary image
     images: Images
+    attributes: Attributes
     
 
 user:

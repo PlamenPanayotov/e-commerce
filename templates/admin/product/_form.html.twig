@@ -59,6 +59,30 @@
     </select>
   </div>
 
+  <div class="form-group col-md-4">
+    <label for="admin_product_category_id">
+      Attributes
+    </label>
+    {% if product.attributes %}
+        {% for attribute in product.attributes %}
+          <span class="btn btn-secondary">{{ attribute.name }}</span>
+        {% endfor %}
+    {% endif %}
+    <select class="form-control"
+      name="admin_product[attribute]"
+      id="admin_product_attribute_id"
+      required="">
+        <option value="">
+          {% trans %}systems.choose{% endtrans %}...
+        </option>
+      {% for attribute in attributes %}
+        <option value="{{ attribute.id }}" name="product[attribute]">
+          {{ attribute.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
 
   {% if app.request.requestUri != '/admin/products/new/0' %}
     {% if productOptionGroups %}
