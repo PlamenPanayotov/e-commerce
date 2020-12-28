@@ -3,6 +3,7 @@ admin:
   components: Компоненти
   settings: Настройки
   interface: Интерфейс
+  navigation: Навигация
   product:
     add: Добави продукт
     all: Всички продкти
@@ -21,6 +22,7 @@ admin:
     name:
     primary_image: Главна снимка
     images: Снимки
+    
 
 
 user:

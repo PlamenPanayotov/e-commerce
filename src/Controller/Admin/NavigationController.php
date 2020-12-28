@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Navigation;
 use App\Form\Admin\NavigationType;
-use App\Repository\NavigationRepository;
+use App\Service\Category\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NavigationController extends AbstractController
 {
+    private $categoryService;
+
+    public function __construct(CategoryServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
     /**
      * @Route("/", name="navigation_index", methods={"GET"})
      */
-    public function index(NavigationRepository $navigationRepository): Response
+    public function index(): Response
     {
-        return $this->render('navigation/index.html.twig', [
-            'navigations' => $navigationRepository->findAll(),
+        return $this->render('admin/navigation/index.html.twig', [
+            'categories' => $this->categoryService->getSortedCategories(),
         ]);
     }
 
@@ -42,8 +48,9 @@ class NavigationController extends AbstractController
             return $this->redirectToRoute('navigation_index');
         }
 
-        return $this->render('navigation/new.html.twig', [
+        return $this->render('admin/navigation/new.html.twig', [
             'navigation' => $navigation,
+            'categories' => $this->categoryService->getSortedCategories(),
             'form' => $form->createView(),
         ]);
     }
@@ -53,7 +60,7 @@ class NavigationController extends AbstractController
      */
     public function show(Navigation $navigation): Response
     {
-        return $this->render('navigation/show.html.twig', [
+        return $this->render('admin/navigation/show.html.twig', [
             'navigation' => $navigation,
         ]);
     }
@@ -72,7 +79,7 @@ class NavigationController extends AbstractController
             return $this->redirectToRoute('navigation_index');
         }
 
-        return $this->render('navigation/edit.html.twig', [
+        return $this->render('admin/navigation/edit.html.twig', [
             'navigation' => $navigation,
             'form' => $form->createView(),
         ]);

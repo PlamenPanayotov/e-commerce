@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/index.html.twig' %}
 
 {% block title %}Navigation index{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>Navigation index</h1>
 
     <table class="table">
@@ -15,14 +15,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for navigation in navigations %}
+        {% for category in categories %}
             <tr>
-                <td>{{ navigation.id }}</td>
-                <td>{{ navigation.sequence }}</td>
-                <td>{{ navigation.category.name }}</td>
+                <td>{{ category.id }}</td>
+                <td>{{ category.sequence }}</td>
+                <td>{{ category.category.name }}</td>
                 <td>
-                    <a href="{{ path('navigation_show', {'id': navigation.id}) }}">show</a>
-                    <a href="{{ path('navigation_edit', {'id': navigation.id}) }}">edit</a>
+                    <a href="{{ path('navigation_show', {'id': category.id}) }}">show</a>
+                    <a href="{{ path('navigation_edit', {'id': category.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

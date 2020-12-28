@@ -75,10 +75,10 @@
       data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">
-          Custom Utilities:
+          {% trans %}admin.settings{% endtrans %}
         </h6>
         {# <a class="collapse-item" href="{{ path('admin-change-locale')}}">{% trans %}Admin.Product.language{% endtrans %}</a> #}
-        <a class="collapse-item" href="utilities-border.html">Borders</a>
+        <a class="collapse-item" href="{{ path('navigation_index')}}">{% trans %}admin.navigation{% endtrans %}</a>
         <a class="collapse-item" href="utilities-animation.html">Animations</a>
         <a class="collapse-item" href="utilities-other.html">Other</a>
       </div>

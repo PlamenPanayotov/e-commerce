@@ -3,6 +3,7 @@ admin:
   components: Components
   settings: Settings
   interface: Interface
+  navigation: Navigation
   product:
     add: Add product
     all: All products
@@ -20,6 +21,7 @@ admin:
     editProduct: Edit product
     primary_image: Primary image
     images: Images
+    
 
 user:
   login: Login
