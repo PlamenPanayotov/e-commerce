@@ -8,9 +8,6 @@ admin:
     add: Add product
     all: All products
     products: Products
-    show: show
-    edit: edit
-    delete: delete
     with_options: Product with options
     without_options: Product without options
     categories: Categories
@@ -21,7 +18,10 @@ admin:
     editProduct: Edit product
     primary_image: Primary image
     images: Images
+  attribute: 
     attributes: Attributes
+    all: All attributes
+    add: Add attribute 
     
 
 user:
@@ -44,4 +44,6 @@ store:
 
 systems:
   choose: Choose
-  delete: Delete
+  show: show
+  edit: edit
+  delete: delete

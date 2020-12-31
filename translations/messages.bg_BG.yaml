@@ -8,9 +8,6 @@ admin:
     add: Добави продукт
     all: Всички продкти
     products: Продукти
-    show: покажи
-    edit: промени
-    delete: изтрий
     with_options: Продукт с опции
     without_options: Продукт без опции
     categories: Категории
@@ -22,8 +19,10 @@ admin:
     name:
     primary_image: Главна снимка
     images: Снимки
+  attribute: 
     attributes: Атрибути
-    
+    all: Всички атрибути
+    add: Добави атрибут    
 
 
 user:
@@ -44,6 +43,8 @@ store:
   
 systems:
   choose: Избери  
-  delete: Изтрий
+  show: покажи
+  edit: промени
+  delete: изтрий
 
 
