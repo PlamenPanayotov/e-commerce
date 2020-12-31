@@ -29,14 +29,14 @@
 							<tr>
 								<th>Id</th>
 								<th>Name</th>
-                                <th>Action</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
 								<th>Id</th>
 								<th>Name</th>
-                                <th>Action</th>
+								<th>Action</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -44,11 +44,11 @@
 								<tr>
 									<td>{{ attribute.id }}</td>
 									<td>{{ attribute.name }}</td>
-                                    <td>
-                                        <a class="btn-sm btn-info" href="{{ path('attribute_show', {'id': attribute.id}) }}">{% trans %}systems.show{% endtrans %}</a>
+									<td>
+										<a class="btn-sm btn-info" href="{{ path('attribute_show', {'id': attribute.id}) }}">{% trans %}systems.show{% endtrans %}</a>
 										<a class="btn-sm btn-warning" href="{{ path('attribute_edit', {'id': attribute.id}) }}">{% trans %}systems.edit{% endtrans %}</a>
 										<a class="btn-sm btn-danger" href="{{ path('attribute_delete', {'id': attribute.id}) }}">{% trans %}systems.delete{% endtrans %}</a>
-                                    </td>    
+									</td>
 								</tr>
 							{% endfor %}
 						</tbody>

@@ -1,35 +1,66 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
 
-{% block title %}OptionGroup index{% endblock %}
+{% block title %}OptionGroup index
+{% endblock %}
 
-{% block body %}
-    <h1>OptionGroup index</h1>
+{% block content %}
+	<!-- Begin Page Content -->
+	<div
+		class="container-fluid">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for option_group in option_groups %}
-            <tr>
-                <td>{{ option_group.id }}</td>
-                <td>{{ option_group.name }}</td>
-                <td>
-                    <a href="{{ path('option_group_show', {'id': option_group.id}) }}">show</a>
-                    <a href="{{ path('option_group_edit', {'id': option_group.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">{% trans %}admin.product.option_groups{% endtrans %}</h1>
+		<a href="{{ path('attribute_new')}}" class="btn btn-info">
+			{% trans %}systems.add{% endtrans %}
+			<svg width="1em" height="1em" viewbox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+			</svg>
+		</a>
 
-    <a href="{{ path('option_group_new') }}">Create new</a>
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">{% trans %}admin.product.option_groups{% endtrans %}</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Action</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							{% for option_group in option_groups %}
+								<tr>
+									<td>{{ option_group.id }}</td>
+									<td>{{ option_group.name }}</td>
+									<td>
+										<a class="btn-sm btn-info" href="{{ path('option_group_show', {'id': option_group.id}) }}">{% trans %}systems.show{% endtrans %}</a>
+										<a class="btn-sm btn-warning" href="{{ path('option_group_edit', {'id': option_group.id}) }}">{% trans %}systems.edit{% endtrans %}</a>
+										<a class="btn-sm btn-danger" href="{{ path('option_group_delete', {'id': option_group.id}) }}">{% trans %}systems.delete{% endtrans %}</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.container-fluid -->
+	
 {% endblock %}
