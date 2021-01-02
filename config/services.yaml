@@ -4,9 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-  locale: bg_BG
-  activated_locales: ['%locale%', 'bg_BG']
-  locales_requirements: '%locale%|bg_BG'
+  locale: en_US
+  activated_locales: ['%locale%', 'en_US']
+  locales_requirements: '%locale%|en_US'
   uploads_directory: '%kernel.project_dir%/public/uploads'
 services:
   # default configuration for services in *this* file

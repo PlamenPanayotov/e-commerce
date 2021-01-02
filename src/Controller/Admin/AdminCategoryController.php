@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\Admin\AdminCategoryType;
 use App\Repository\CategoryRepository;
+use App\Service\Category\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminCategoryController extends AbstractController
 {
+    private $categoryService;
+
+    public function __construct(CategoryServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * @Route("/", name="category_index", methods={"GET"})
      */
@@ -40,6 +48,7 @@ class AdminCategoryController extends AbstractController
             $category->setRow($row);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category); 
+            $this->categoryService->setCategoryTranslation($category, $form, $entityManager);
             $entityManager->flush();
 
             return $this->redirectToRoute('category_index');

@@ -79,7 +79,7 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/new/{options}", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request, AttributeRepository $attributeRepository): Response
+    public function new(Request $request): Response
     {
         $categories = $this->categoryService->getAll();
         $optionGroups = $this->optionGroupService->getAll();

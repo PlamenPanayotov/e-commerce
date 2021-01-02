@@ -16,6 +16,7 @@ class LocaleSubscriber implements EventSubscriberInterface
         }
 
         $locale = $request->getSession()->get('_locale');
+        $defaultLocale = $request->getLocale();
         
         if ($locale = $request->attributes->get('_locale')) {
             $request->getSession()->set('_locale', $locale);
@@ -25,10 +26,10 @@ class LocaleSubscriber implements EventSubscriberInterface
                 $request->setLocale($cookie);
 
                 if ($cookie != 'en_US' && $cookie != 'bg_BG') {
-                    $request->setLocale('bg_BG');
+                    $request->setLocale($locale);
                 }
             } else {
-                $request->setLocale('bg_BG');
+                $request->setLocale($defaultLocale);
             }
         }
     }

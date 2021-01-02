@@ -23,11 +23,6 @@ class Category
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * One Category has Many Categories.
      * @OneToMany(targetEntity="Category", mappedBy="parent")
      */
@@ -51,11 +46,10 @@ class Category
     private $products;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\CategoryTranslation", mappedBy="category")
      */
-    private $nameBg;
+    private $translations;
     
-
     public function __construct() 
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
@@ -65,29 +59,6 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-
-    public function getName(): ?string
-    {
-        if (array_key_exists('_locale', $_COOKIE)) {
-            $cookie = $_COOKIE['_locale'];
-
-            if ($cookie != 'en_US' && $cookie != 'bg_BG') {
-                return $this->nameBg;
-            } else {
-                return $cookie == 'en_US' ? $this->name : $this->nameBg;
-            }
-        } else {
-            return $this->nameBg;
-        }
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -128,13 +99,6 @@ class Category
         $this->parent = $parent;
 
         return $this;
-    }
-
-    public function __toString(){
-        // to show the name of the Category in the select
-        return $this->name;
-        // to show the id of the Category in the select
-        // return $this->id;
     }
 
     public function getRow(): ?int
@@ -201,4 +165,5 @@ class Category
     {
         return $this->nameBg;
     }
+
 }
