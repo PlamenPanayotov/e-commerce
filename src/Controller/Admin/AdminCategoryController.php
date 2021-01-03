@@ -28,6 +28,14 @@ class AdminCategoryController extends AbstractController
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
+        // foreach ($categoryRepository->findAll() as $category) {
+            
+        //     foreach ($category->getTranslations() as $translation) {
+        //         dump($translation);
+        //     }
+        // }
+        
+        // exit;
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
         ]);

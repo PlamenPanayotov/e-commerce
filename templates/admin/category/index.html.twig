@@ -35,6 +35,9 @@
     <div id="categories">
       <ul>
         {% for category in categories %}
+        {% for translation in category.translations %}
+          {% if app.request.locale == translation.language.locale %}
+            {% set var = translation %}
           {% if category.row == 1 %}
             <a href="{{
               path(
@@ -44,10 +47,13 @@
                 }
               )
               }}">
-              {{ category.name }}
+              {{ var.name }}
             </a>
             {{ _self.recursiveCategory(category) }}
+            {% endif %}
+            
           {% endif %}
+          {% endfor %}
         {% endfor %}
       </ul>
     </div>

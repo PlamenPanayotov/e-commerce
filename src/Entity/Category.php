@@ -54,6 +54,7 @@ class Category
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,49 +122,30 @@ class Category
         return $this->products;
     }
 
-    // public function addChild(Category $child): self
-    // {
-    //     if (!$this->children->contains($child)) {
-    //         $this->children[] = $child;
-    //         $child->setParent($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeChild(Category $child): self
-    // {
-    //     if ($this->children->contains($child)) {
-    //         $this->children->removeElement($child);
-    //         // set the owning side to null (unless already changed)
-    //         if ($child->getParent() === $this) {
-    //             $child->setParent(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
-    
-   
-    /**
-     * Set the value of nameBg
-     *
-     * @return  self
-     */ 
-    public function setNameBg($nameBg)
-    {
-        $this->nameBg = $nameBg;
-
-        return $this;
-    }
 
     /**
-     * Get the value of nameBg
-     */ 
-    public function getNameBg()
+     * @return Collection|CategoryTranslation[]
+     */
+    public function getTranslations(): Collection
     {
-        return $this->nameBg;
+        return $this->translations;
     }
 
+    public function getName()
+    {
+        $translations = $this->getTranslations();
+        if(isset($GLOBALS['request']) && $GLOBALS['request']) {
+            $locale = $GLOBALS['request']->getLocale(); 
+       }
+        foreach ($translations as $translation) {
+            if ($locale == $translation->getLanguage()->getLocale()) {
+                return $translation->getName();
+            }
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

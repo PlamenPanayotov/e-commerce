@@ -34,6 +34,11 @@ class CategoryService implements CategoryServiceInterface
                 $entityManager->persist($categoryTranslation);
         }
     }
+
+    public function editCategoryTranslation($category, $form, $entityManager)
+    {
+        
+    }
     
     public function getAll()
     {
