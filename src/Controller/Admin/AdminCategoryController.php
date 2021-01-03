@@ -87,7 +87,11 @@ class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $this->categoryService->editCategoryTranslation($category, $form, $entityManager);
+
+            $entityManager->flush();
 
             return $this->redirectToRoute('category_index');
         }
