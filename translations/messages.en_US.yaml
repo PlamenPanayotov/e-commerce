@@ -22,6 +22,10 @@ admin:
     attributes: Attributes
     all: All attributes
     add: Add attribute 
+  categories:
+    categories: Categories
+    add: Add category
+    all: All categories  
     
 
 user:

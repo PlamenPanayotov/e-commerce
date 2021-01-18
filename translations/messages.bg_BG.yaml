@@ -22,7 +22,11 @@ admin:
   attribute: 
     attributes: Атрибути
     all: Всички атрибути
-    add: Добави атрибут    
+    add: Добави атрибут   
+  categories:
+    categories: Категории
+    add: Добави категория
+    all: Всички категории   
 
 
 user:
